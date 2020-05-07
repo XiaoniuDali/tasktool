@@ -2,25 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
     <title>register new account</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 <h3>register new account</h3>
 <form>
+    <input type="hidden" name="rsaPublicKey" th:value="${rsaPublicKey}">
     <input type="hidden" name="key" th:value="${key}">
     <input type="text" name="username" th:value="${account.username}"><samp th:text="${error}"></samp>
 
     <br/>
     <input type="password" name="password" th:value="${account.password}">
     <br/>
-    <input type="button" onclick="register()" value="register"></input>
+    <input type="button" onclick="register2()" value="register"></input>
 </form>
 
 <a href="/account/register">register new account</a>
 
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>-->
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
 <script src="/static/js/crypto-js-4.0.0/crypto-js.js"></script>
+<script src="/static/js/jsencrypt-master/bin/jsencrypt.js"></script>
 <script>
+
+    //生成AES密钥
+    function createAesKey(){
+        var result='';
+        for(var i=0;i<16;i++){
+            result+=Math.floor(Math.random()*16).toString(16);//获取0-15并通过toString转16进制
+        }
+        return result.toUpperCase();
+    }
+
     function register(){
         var $key = $('input[name="key"]').val();
         var $userName = $('input[name="username"]').val();
@@ -81,6 +113,81 @@
         });
     }
 
+    // 采用RSA + AES两种加密方式完成注册
+    function register2(){
+        var $userName = $('input[name="username"]').val();
+        var $password = $('input[name="password"]').val();
+        if ($userName == "" || $password == "" ) {
+            alert("用户名、密码、验证码不能为空！");
+            return false;
+        }
+
+        var $rsaPublicKey = $('input[name="rsaPublicKey"]').val();//服务端传过来的RSA公钥
+
+        //用AES算法加密用户密码
+        var $key = createAesKey();
+        var key = CryptoJS.enc.Utf8.parse($key);
+        console.log("key:" + key + ",$key:" + $key);
+        var password = CryptoJS.enc.Utf8.parse($password);
+        var encrypted = CryptoJS.AES.encrypt(password, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
+        var encryptedPwd = encrypted.toString();
+
+        //用RSA算法加密AES的密钥
+        var verify = new JSEncrypt();
+        verify.setPublicKey($rsaPublicKey);
+        var aesKey = verify.encrypt($key);
+
+
+        $.ajax({
+            type: "post",
+            url: "/account/doRegister",
+            data: {
+                username: $userName,
+                password: encryptedPwd,
+                key: aesKey
+            },
+            dataType: "json",
+            success: function (result) {
+//                    console.log(result);
+                if(result.status == 1)
+                {
+                    window.location.href= '/login';
+                }
+                else
+                {
+                    $('h4[name="msg"]').html(result.msg);
+                    // alert(result.msg);
+                }
+//                    window.location.replace(result.url);
+//                    $('#container').load(result.url);
+            },
+            error: function (result) {
+//                        console.log(result);
+                alert(result.responseText);
+            }
+        });
+    }
+    function testRsa(){
+        // var sign = new JSEncrypt();
+        // sign.setPrivateKey($('#privkey').val());
+        // var signature = sign.sign($('#input').val(), CryptoJS.SHA256, "sha256");
+
+        // Verify with the public key...
+        var verify = new JSEncrypt();
+        var pubkey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbfCRngTYtVWx9BofMiyEVLp8rZxil5fKX9+yE6tyTaLi4xIuCVNd3xMwUtMgGhzJxJ7fA/St3bIoc+r+96rCIaWFSxilgXuLxuaQ56/t1h6/rICU6U/1pdMADY1CNU3sMwAGxCC3nvKvtk6uDHTJ1RwxaEpLMBe0So78FY59WMwIDAQAB';
+        verify.setPublicKey(pubkey);
+        var str = verify.encrypt('123456');
+        console.log("加密数据：" + str)
+
+        // Now a simple check to see if the round-trip worked.
+        if (verified) {
+            alert('It works!!!');
+        }
+        else {
+            alert('Something went wrong....');
+        }
+    }
+    testRsa();
 </script>
 </body>
 </html>

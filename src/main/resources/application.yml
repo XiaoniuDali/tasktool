@@ -10,7 +10,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/renren_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/tasktool2?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
       username: root
       password: root
       initial-size: 10
@@ -39,15 +39,18 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
 
   mvc:
     static-path-pattern: /static/**
 #mybatis
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
+  mapper-locations: classpath*:/mapper/**/*.xml,classpath*:/mapper/sys/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.bymz.tasktool.modules.*.entity
+  typeAliasesPackage: com.bymz.tasktool.modules.*.entity,com.bymz.tasktool.modules.sys.*.entity
   global-config:
     #数据库相关配置
     db-config:

@@ -99,7 +99,6 @@ public class MainController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "redirect:/login";
-
     }
 
 }

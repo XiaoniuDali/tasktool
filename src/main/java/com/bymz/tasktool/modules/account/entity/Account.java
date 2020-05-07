@@ -1,5 +1,7 @@
 package com.bymz.tasktool.modules.account.entity;
 
+import com.bymz.tasktool.common.dict.Dict;
+import com.bymz.tasktool.modules.sys.dict.entity.SysDictData;
 import lombok.Data;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,8 +10,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 //import io.renren.common.validator.group.AddGroup;
 //import io.renren.common.validator.group.UpdateGroup;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -62,8 +62,9 @@ public class Account implements Serializable {
     /**
      * 状态  0：禁用   1：正常
      */
+    @Dict(key = "account_status")
     private Integer status;
-
+    private List<SysDictData> statusDict;
     /**
      * 角色ID列表
      */

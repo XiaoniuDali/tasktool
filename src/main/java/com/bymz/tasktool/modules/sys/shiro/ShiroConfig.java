@@ -27,6 +27,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/account/register", "anon");
         filterChainDefinitionMap.put("/account/doRegister", "anon");
+        filterChainDefinitionMap.put("/account/doRegister2", "anon");
         filterChainDefinitionMap.put("/doLogin", "anon");
 //        filterChainDefinitionMap.put("/authc/index", "authc");
         filterChainDefinitionMap.put("/authc/admin", "roles[admin]");
