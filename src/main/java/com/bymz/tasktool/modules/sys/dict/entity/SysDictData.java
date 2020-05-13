@@ -19,7 +19,7 @@ import java.util.List;
  * @author Mark sunlightcs@gmail.com
  */
 @Data
-@TableName("sys_dict_data")
+@TableName("js_sys_dict_data")
 public class SysDictData implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId

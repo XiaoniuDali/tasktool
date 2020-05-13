@@ -1,7 +1,7 @@
 package com.bymz.tasktool.modules.account.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bymz.tasktool.comon.utils.PageUtils;
+import com.bymz.tasktool.comon.utils.PageData;
 import com.bymz.tasktool.modules.account.entity.Account;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface AccountService extends IService<Account> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageData queryPage(Map<String, Object> params);
 
     /**
      * 查询用户的所有权限

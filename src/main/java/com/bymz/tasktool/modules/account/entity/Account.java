@@ -17,10 +17,9 @@ import java.util.List;
 /**
  * 系统用户
  *
- * @author Mark sunlightcs@gmail.com
  */
 @Data
-@TableName("sys_user")
+@TableName("tt_account_info")
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +63,6 @@ public class Account implements Serializable {
      */
     @Dict(key = "account_status")
     private Integer status;
-    private List<SysDictData> statusDict;
     /**
      * 角色ID列表
      */

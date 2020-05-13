@@ -18,7 +18,7 @@
 	<!--</select>-->
 
     <select id="queryByUserName" resultType="com.bymz.tasktool.modules.account.entity.Account">
-		select * from sys_user where username = #{username}
+		select * from tt_account_info where username = #{username}
 	</select>
 
 </mapper>

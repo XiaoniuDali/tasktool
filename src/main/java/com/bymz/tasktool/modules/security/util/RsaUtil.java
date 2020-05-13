@@ -1,4 +1,4 @@
-package com.bymz.tasktool.modules.rsa;
+package com.bymz.tasktool.modules.security.util;
 import java.io.ByteArrayOutputStream;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -9,12 +9,25 @@ import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.codec.binary.Base64;
 
 /**
  * 代码来自：https://www.cnblogs.com/pcheng/p/9629621.html博客
  */
-public class TestRSA {
+public class RsaUtil {
+
+    /**
+     * RSA最大加密明文大小
+     */
+    private static final int MAX_ENCRYPT_BLOCK = 117;
+
+    /**
+     * RSA最大解密密文大小
+     */
+    private static final int MAX_DECRYPT_BLOCK = 128;
+
     public static String publicKey;
     public static String privateKey;
     static {
@@ -31,16 +44,6 @@ public class TestRSA {
             e.printStackTrace();
         }
     }
-
-    /**
-     * RSA最大加密明文大小
-     */
-    private static final int MAX_ENCRYPT_BLOCK = 117;
-
-    /**
-     * RSA最大解密密文大小
-     */
-    private static final int MAX_DECRYPT_BLOCK = 128;
 
     /**
      * 获取密钥对
@@ -180,6 +183,11 @@ public class TestRSA {
         signature.initVerify(key);
         signature.update(srcData.getBytes());
         return signature.verify(Base64.decodeBase64(sign.getBytes()));
+    }
+
+
+    public static String getAesKey(HttpServletRequest request){
+        return request.getSession().getAttribute("AES_KEY").toString();
     }
 
     public static void main(String[] args) {

@@ -2,15 +2,13 @@ package com.bymz.tasktool.modules.sys.shiro;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bymz.tasktool.modules.sys.shiro.util.PasswordHelper;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.servlet.Filter;
 
 @Configuration
 public class ShiroConfig {
@@ -24,6 +22,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/welcome");
 
         Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
+        filterChainDefinitionMap.put("/security/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/account/register", "anon");
         filterChainDefinitionMap.put("/account/doRegister", "anon");

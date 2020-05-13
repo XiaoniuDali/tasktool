@@ -48,8 +48,6 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
     protected void doProcess(ITemplateContext iTemplateContext,
                              IProcessableElementTag iProcessableElementTag,
                              IElementTagStructureHandler iElementTagStructureHandler) {
-
-
         //获取标签的属性值
         String dictType = iProcessableElementTag.getAttributeValue("type");
         String dictName = iProcessableElementTag.getAttributeValue("name");

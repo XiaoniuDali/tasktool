@@ -1,22 +1,18 @@
 package com.bymz.tasktool.modules.account.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import com.bymz.tasktool.comon.utils.PageUtils;
+import com.bymz.tasktool.comon.utils.PageData;
 import com.bymz.tasktool.modules.account.dao.AccountDao;
 import com.bymz.tasktool.modules.account.entity.Account;
 import com.bymz.tasktool.modules.account.service.AccountService;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +27,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountDao, Account> impleme
 
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageData queryPage(Map<String, Object> params) {
 //        String username = (String)params.get("username");
 //        Long createUserId = (Long)params.get("createUserId");
 //
@@ -42,7 +38,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountDao, Account> impleme
 //                        .eq(createUserId != null,"create_user_id", createUserId)
 //        );
 //
-//        return new PageUtils(page);
+//        return new PageData(page);
 
         return null;
     }

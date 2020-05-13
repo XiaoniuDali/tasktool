@@ -1,4 +1,4 @@
-package com.bymz.tasktool.modules.sys.shiro;
+package com.bymz.tasktool.modules.security.util;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -27,6 +27,12 @@ public class AesUtils {
         }
     }
 
+    /**
+     *
+     * @param encryptStr
+     * @param decryptKey
+     * @return
+     */
     public static String decrypt(String encryptStr, String decryptKey) {
         try {
             byte[] raw = decryptKey.getBytes();  //获得密码的字节数组

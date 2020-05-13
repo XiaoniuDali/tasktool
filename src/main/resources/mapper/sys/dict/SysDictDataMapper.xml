@@ -18,7 +18,7 @@
 	<!--</select>-->
 
     <select id="queryByDictType" resultType="com.bymz.tasktool.modules.sys.dict.entity.SysDictData">
-		select * from sys_dict_data where dict_type = #{dictType}
+		select * from js_sys_dict_data where dict_type = #{dictType}
 	</select>
 
 </mapper>
