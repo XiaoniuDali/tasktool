@@ -7,11 +7,11 @@
 <body>
     <h3>login tasktool system</h3>
     <form>
-        <input type="hidden" name="key" th:value="${key}">
-        <input type="text" name="username" th:value="${account.username}"><samp th:text="${error}"></samp>
+        <input type="hidden" name="key" th:value="${key}" />
+        <input type="text" name="username" th:value="${account.username}"/><samp th:text="${error}"></samp>
 
         <br/>
-        <input type="password" name="password" th:value="${account.password}">
+        <input type="password" name="password" th:value="${account.password}"/></form>
         <br/>
 
         <select name="sysStatus">
@@ -22,19 +22,19 @@
                     th:text="${status.dictLabel}"></option>
         </select>
         <br/>
-        <sys:dict type="DISEASES_OPTION" name="sys_status" th:value="${account.status}" class="myDictSelect" />
+        <sys:dict type="DISEASES_OPTION" name="sys_status" th:value="${account.status}" class="myDictSelect" ></sys:dict>
         <br/>
-        <sys:dict type="DISEASES_OPTION" name="sys_yes_no" class="myDictSelect" fastOptionValue="100" fastOptionName="请选择是或否"/>
+        <sys:dict type="DISEASES_OPTION" name="sys_yes_no" class="myDictSelect" fastOptionValue="100" fastOptionName="请选择是或否"></sys:dict>
         <br/>
-        <input type="radio" name="aihao" value="单人运动">
-        <input type="radio" name="aihao" value="多人运动">
-        <input type="radio" name="aihao" value="唱">
-        <input type="radio" name="aihao" value="跳">
-        <input type="radio" name="aihao" value="rap">
+        <input type="radio" name="aihao" value="单人运动"/>
+        <input type="radio" name="aihao" value="多人运动"/>
+        <input type="radio" name="aihao" value="唱"/>
+        <input type="radio" name="aihao" value="跳"/>
+        <input type="radio" name="aihao" value="rap"/>
 
         <br/>
-        <sys:radio type="DISEASES_OPTION" name="sys_yes_no" class="myRadio"/>
-        <input type="button" onclick="login()" value="login"></input>
+        <sys:radio type="DISEASES_OPTION" name="sys_yes_no" class="myRadio"></sys:radio>
+        <input type="button" onclick="login()" value="login"/>
     </form>
 
     <a href="/account/register">register new account</a>

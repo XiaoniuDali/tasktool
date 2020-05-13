@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>register new account</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        body {
+            background-color: #F4F4F4;
+            font-family: "微软雅黑";
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <!--<a class="navbar-logo" href="http://www.jq22.com/"><img src="https://www.jq22.com/img/logo.png" height="100%" alt="jQuery插件,jQuery,jQuery特效.jQuery ui,jQuery 教程,css3,网页特效,JS特效"></a> </div>-->
+            <a class="navbar-logo navbar-brand" href="http://www.jq22.com/">logo</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.jq22.com/daima"><i class="fa fa-code"></i> &nbsp;在线代码</a></li>
+                <li><a href="https://www.jq22.com/webide"><i class="fa fa-edit"></i> &nbsp;在线编辑器</a></li>
+                <li><a href="http://www.jq22.com/textDifference"><i class="fa fa-balance-scale" aria-hidden="true"></i> &nbsp;文本比较</a></li>
+                <li><a href="http://www.jq22.com/jquery-info122"><i class="fa fa-download"></i> &nbsp;jQuery下载</a></li>
+                <li><a href="https://www.jq22.com/jquery/jquery.html" target="_blank"><i class="fa fa-ship" aria-hidden="true"></i> &nbsp;前端库</a></li>
+                <li><a href="https://www.jq22.com/chm/jquery/index.html" target="_blank"><i class="fa fa-book"></i> &nbsp;在线手册</a></li>
+                <li class="dropdown"><a rel="nofollow" href="https://weibo.com/jq22" target="_blank"><i class="fa fa-weibo"></i> &nbsp;微博</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Java
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">jmeter</a></li>
+                        <li><a href="#">EJB</a></li>
+                        <li><a href="#">Jasper Report</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">分离的链接</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另一个分离的链接</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-user"></i> &nbsp;注册/登录<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content2 tcc">
+            <div class="modal-header2 top20">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                </h4>
+            </div>
+            <div class="modal-body tcck">
+                <div class="input-group input-group-lg parentCls">
+                    <span class="input-group-addon" id="email"><i class="fa fa-envelope-o"></i></span>
+                    <input type="text" class="form-control inputElem" placeholder="请输入登录邮箱" aria-describedby="email" id="ema" style="width: 466px;">
+                </div>
+                <div class="input-group input-group-lg top20">
+                    <span class="input-group-addon" id="pwd"><i class="fa fa-unlock-alt" style="width:18px"></i></span>
+                    <input type="password" class="form-control" placeholder="请输入登录密码" aria-describedby="pwd" id="pw">
+                    <span class="input-group-btn tccBut">
+                        <button class="btn btn-success" type="button" onclick="emdl()">登 录</button>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer2">
+                <div class="f">
+                    <a href="pwd.aspx">忘记密码?</a></div>
+                <div class="r"><a href="register.aspx">注册新用户</a></div>
+                <div class="dr"></div>
+            </div>
+            <div class="d3f modal-body tcck2">
+                <a href="#" onclick="tz()" class="qq"></a>
+                <a href="https://api.weibo.com:443/oauth2/authorize?client_id=3364913104&amp;redirect_uri=http%3A%2F%2Fwww.jq22.com%2FWeiboReturn.aspx&amp;response_type=code&amp;display=default" class="sina"></a>
+                <a href="https://www.jq22.com/zfbReturn.aspx" class="zfb"></a>
+                <a href="#" onclick="gt()" class="git"></a>
+            </div>
+            <script>
+                function tz() {
+                    var urldz = "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101135281&redirect_uri=http://www.jq22.com/QQReturn.aspx?tjurl=" + window.location.href;
+                    window.location.href = urldz;
+                }
+                function gt() {
+                    var urldz = "https://github.com/login/oauth/authorize?client_id=cf869185ea7d8fcab6df&state=jq22&redirect_uri=http://www.jq22.com/github.aspx?tjurl=" + window.location.href;
+                    window.location.href = urldz;
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- 失败了这段 -->
+<!--<div class="yn jz container-fluid nav-bgn m0" id="menu_wrap">-->
+    <!--<div class="container m0" style="position:relative;">-->
+        <!--<a class="nzz" href="http://www.jq22.com/jqueryUI-1-jq" id="z1">-->
+            <!--<span class="sort"><i class="fa fa-paint-brush"></i>&nbsp;UI <i class="fa fa-angle-down"></i></span></a>|-->
+        <!--<a class="nzz" href="http://www.jq22.com/jquery输入-1-jq" id="z2">-->
+            <!--<span class="sort"><i class="fa fa-keyboard-o"></i>&nbsp;输入 <i class="fa fa-angle-down"></i></span></a>|-->
+        <!--<a class="nzz" href="http://www.jq22.com/jquery媒体-1-jq" id="z3">-->
+            <!--<span class="sort"><i class="fa fa-film"></i>&nbsp;媒体 <i class="fa fa-angle-down"></i></span></a>|-->
+        <!--<a class="nzz" href="http://www.jq22.com/jquery导航-1-jq" id="z4">-->
+            <!--<span class="sort "><i class="fa fa-paper-plane-o"></i>&nbsp;导航 <i class="fa fa-angle-down"></i></span></a>-->
+        <!--<span class="navxs">|-->
+            <!--<a class="nzz" href="http://www.jq22.com/jquery其他-1-jq" id="z5">-->
+                <!--<span class="sort"><i class="fa fa-dropbox"></i>&nbsp;其他 <i class="fa fa-angle-down"></i></span></a>-->
+        <!--</span>-->
+        <!--<span class="navxs">|-->
+            <!--<a href="http://www.jq22.com/jquery-plugins布局-1-jq" target="_blank"><span class="sort">-->
+                <!--<i class="fa fa-th-large"></i>&nbsp;网页模板</span>-->
+            <!--</a>|-->
+            <!--<a href="http://www.jq22.com/jqueryAPP模板-1-jq" target="_blank">-->
+                <!--<span class="sort"><i class="fa fa-tablet"></i>&nbsp;APP模板</span>-->
+            <!--</a>|-->
+            <!--<a href="http://www.jq22.com/webinfo1" target="_blank">-->
+                <!--<span class="sort"><i class="fa fa-file-code-o"></i>&nbsp;常用代码</span>-->
+            <!--</a>|-->
+            <!--<a href="http://www.jq22.com/daima" target="_blank">-->
+                <!--<span class="sort"><i class="fa fa-code"></i>&nbsp;在线代码</span>-->
+            <!--</a>-->
+        <!--</span>-->
+    <!--</div>-->
+
+    <!--<style>-->
+        <!--.jz {-->
+            <!--text-align: center;-->
+            <!--line-height: 50px;-->
+            <!--font-size: 15px;-->
+            <!--color: #C8C8C8;-->
+            <!--position: relative;-->
+        <!--}-->
+        <!--.nav-bgn {-->
+            <!--top: 50px;-->
+        <!--}-->
+        <!--.nav-bg, .nav-bgn {-->
+            <!--height: 50px;-->
+            <!--background-color: #FFF;-->
+            <!--margin-bottom: 20px;-->
+            <!--box-shadow: 0 1px 3px rgba(0,0,0,0.07);-->
+            <!--z-index: 5;-->
+            <!--position: relative;-->
+            <!--top: 255px;-->
+        <!--}-->
+        <!--.m0 {-->
+            <!--padding-left: 0px;-->
+            <!--padding-right: 0px;-->
+        <!--}-->
+        <!--.container-fluid {-->
+            <!--padding-right: 15px;-->
+            <!--padding-left: 15px;-->
+            <!--margin-right: auto;-->
+            <!--margin-left: auto;-->
+        <!--}-->
+        <!--.sort {padding-right: 20px; padding-left: 20px;}-->
+        <!--@media screen and (max-width:1220px) {-->
+            <!--.azj {display: none}-->
+            <!--.sort {padding-right: 10px; padding-left: 10px;}-->
+        <!--}-->
+    <!--</style>-->
+    <!--<div class="container-fluid">-->
+        <!--<div id="n1" class="nav-zi ty" style="display: block;">-->
+            <!--<ul id="nz1" class="nn list-inline container m0" style="display: none;">-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins背景-1-jq">-->
+                    <!--<i class="fa fa-delicious ls"></i>背景</a>-->
+                <!--</li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins对话框和灯箱-1-jq">-->
+                    <!--<i class="fa fa-bell-o ls"></i>对话框和灯箱</a>-->
+                <!--</li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins筛选及排序-1-jq">-->
+                    <!--<i class="fa fa-sort-numeric-desc ls"></i>筛选及排序</a>-->
+                <!--</li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins反馈-1-jq">-->
+                    <!--<i class="fa fa-comments-o ls"></i>反馈</a>-->
+                <!--</li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins弹出层-1-jq">-->
+                    <!--<i class="fa fa-stack-overflow ls"></i>弹出层</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins悬停-1-jq">-->
+                    <!--<i class="fa fa-hand-o-up ls"></i>悬停</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins布局-1-jq">-->
+                    <!--<i class="fa fa-th-large ls"></i>布局</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins图表-1-jq">-->
+                    <!--<i class="fa fa-bar-chart ls"></i>图表</a>-->
+                <!--</li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins加载-1-jq">-->
+                    <!--<i class="fa fa-spinner ls"></i>加载</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins圆边-1-jq">-->
+                    <!--<i class="fa fa-circle-o ls"></i>圆边</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins滚动-1-jq">-->
+                    <!--<i class="fa fa-long-arrow-down ls"></i>滚动</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins标签-1-jq">-->
+                    <!--<i class="fa fa-tags ls"></i>标签</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins文本链接-1-jq">-->
+                    <!--<i class="fa fa-link ls"></i>文本链接</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins工具提示-1-jq">-->
+                    <!--<i class="fa fa-info-circle ls"></i>工具提示</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins网络类型-1-jq">-->
+                    <!--<i class="fa fa-code-fork ls"></i>网络类型</a></li>-->
+            <!--</ul>-->
+            <!--<ul id="nz2" class="nn list-inline container m0 nadc" style="display: none;">-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins拾色器-1-jq">-->
+                    <!--<i class="fa fa-eyedropper ls"></i>拾色器</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins定制和风格-1-jq">-->
+                    <!--<i class="fa fa-paint-brush ls"></i>定制和风格</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins日期和时间-1-jq">-->
+                    <!--<i class="fa fa-clock-o ls"></i>日期和时间</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins拖和放-1-jq">-->
+                    <!--<i class="fa fa-arrows ls"></i>拖和放</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins通用输入-1-jq">-->
+                    <!--<i class="fa fa-keyboard-o ls"></i>通用输入</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins自动完成-1-jq">-->
+                    <!--<i class="fa fa-calculator ls"></i>自动完成</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins密码-1-jq">-->
+                    <!--<i class="fa fa-lock ls"></i>密码</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins投票率-1-jq">-->
+                    <!--<i class="fa fa-thumbs-up ls"></i>投票率</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins搜索-1-jq">-->
+                    <!--<i class="fa fa-search ls"></i>搜索</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins选择框-1-jq">-->
+                    <!--<i class="fa fa-caret-square-o-down ls"></i>选择框</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins快捷键-1-jq">-->
+                    <!--<i class="fa fa-adn ls"></i>快捷键</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins触摸-1-jq">-->
+                    <!--<i class="fa fa-hand-o-down ls"></i>触摸</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins丰富的输入-1-jq">-->
+                    <!--<i class="fa fa-h-square ls"></i>丰富的输入</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins上传-1-jq">-->
+                    <!--<i class="fa fa-upload ls"></i>上传</a></li>-->
+                <!--<li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins验证-1-jq">-->
+                    <!--<i class="fa fa-key ls"></i>验证</a></li>-->
+            <!--</ul>-->
+            <!--<ul id="nz3" class="nn list-inline container m0 nadc" style="display: none;"><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins音频和视频-1-jq"><i class="fa fa-play-circle-o ls"></i>音频和视频</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins幻灯片和轮播图-1-jq"><i class="fa fa-exchange ls"></i>幻灯片和轮播图</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins图片展示-1-jq"><i class="fa fa-eye ls"></i>图片展示</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins图像-1-jq"><i class="fa fa-picture-o ls"></i>图像</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins地图-1-jq"><i class="fa fa-map-marker ls"></i>地图</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins滑块和旋转-1-jq"><i class="fa fa-arrows-h ls"></i>滑块和旋转</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-pluginsTabs-1-jq"><i class="fa fa-folder-o ls"></i>Tabs</a></li></ul>-->
+            <!--<ul id="nz4" class="nn list-inline container m0 nadc" style="display: none;"><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins水平导航-1-jq"><i class="fa fa-long-arrow-right ls"></i>水平导航</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins垂直导航-1-jq"><i class="fa fa-long-arrow-down ls"></i>垂直导航</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins文件树-1-jq"><i class="fa fa-sitemap ls"></i>文件树</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins分页-1-jq"><i class="fa fa-chevron-right ls"></i>分页</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins手风琴菜单-1-jq"><i class="fa fa-trello ls"></i>手风琴菜单</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins其他导航-1-jq"><i class="fa fa-location-arrow ls"></i>其他导航</a></li></ul>-->
+            <!--<ul id="nz5" class="nn list-inline container m0 nadc" style="display: block;"><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins动画效果-1-jq"><i class="fa fa-rocket ls"></i>动画效果</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins浏览器调整-1-jq"><i class="fa fa-expand ls"></i>浏览器调整</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins移动-1-jq"><i class="fa fa-arrows-v ls"></i>移动</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins独立的部件-1-jq"><i class="fa fa-cogs ls"></i>独立的部件</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins杂项-1-jq"><i class="fa fa-gift ls"></i>杂项</a></li><li><a class="c-btn c-btn&#45;&#45;border-line" href="http://www.jq22.com/jquery-plugins游戏-1-jq"><i class="fa fa-gamepad ls"></i>游戏</a></li></ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="container m0 bod top70" id="zt">
+
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="project">
+            <iframe href="http://www.baidu.com">
+
+            </iframe>
+            <!--<div class="adinfo">-->
+            <!--</div>-->
+            <!--<div class="project-header">-->
+                <!--<h1>jQuery后台左侧菜单导航</h1>-->
+                <!--<p>所属分类：导航-垂直导航</p>-->
+                <!--<div class="row pd10">-->
+                    <!--<div class="f">-->
+                        <!--<span><i class="fa fa-eye"></i> &nbsp;87482 </span>-->
+                        <!--<span><i class="fa fa-heart"></i> &nbsp;561 </span>-->
+                        <!--<span style="border-right: 0;  "><a href="message9082"><i class="fa fa-comment"></i> &nbsp;查看评论 <span style="color:#ff0000;border-right: 0; font: 20px/24px Georgia;">(69)</span></a> </span>-->
+                    <!--</div>-->
+                    <!--<div class="r fx">-->
+                        <!--<div class="bdsharebuttonbox" data-tag="share_1">-->
+                            <!--<a class="ttqq" data-cmd="sqq" title="分享到QQ好友"></a>-->
+                            <!--<a class="ttwx" data-cmd="weixin" href="#"></a>-->
+                            <!--<a class="ttqzone" data-cmd="qzone"></a>-->
+                            <!--<a class="ttsina" data-cmd="tsina"></a>-->
+                            <!--<a class="tthuaban" data-cmd="huaban"></a>-->
+                            <!--<a class="ttfbook" data-cmd="fbook"></a>-->
+                            <!--<div id="fxcode"><div class="f fxjg">分享到微信朋友圈</div><div id="fxcolse" class="r fxjg"><b>X</b></div><canvas width="175" height="175"></canvas></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="dr"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="project-content inad">-->
+                <!--<img src="//assets.jq22.com/plugin/2016-08-16-13-08-29.png" class="thumbile" alt="jQuery后台左侧菜单导航">-->
+                <!--<img src="/img/9.png" class="thumbile" alt="ie兼容9">-->
+                <!--<div class="row text-center" style="margin-bottom:30px;margin-top: 10px;height: 90px;background-image: url(img/myinfobg.png)">-->
+                    <!--<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+
+                    <!--<ins class="adsbygoogle" style="display:inline-block;width:820px;height:90px" data-ad-client="ca-pub-2935286260943234" data-ad-slot="1551313993" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:820px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:820px;background-color:transparent;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:820px;height:90px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="820" height="90" frameborder="0" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-2935286260943234&amp;output=html&amp;h=90&amp;slotname=1551313993&amp;adk=648680243&amp;adf=2512271485&amp;w=820&amp;lmt=1589247326&amp;psa=1&amp;guci=2.2.0.0.2.2.0.0&amp;format=820x90&amp;url=http%3A%2F%2Fwww.jq22.com%2Fjquery-info9082&amp;flash=0&amp;wgl=1&amp;dt=1589247326298&amp;bpp=18&amp;bdt=968&amp;idt=144&amp;shv=r20200506&amp;cbv=r20190131&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3D6463b311731b7890%3AT%3D1589243314%3AS%3DALNI_MbzzV-zycizf0OOkVy9bAQu5u5XeQ&amp;crv=1&amp;correlator=3909039199986&amp;frm=20&amp;pv=2&amp;ga_vid=2015687502.1589247326&amp;ga_sid=1589247326&amp;ga_hid=1461593868&amp;ga_fc=0&amp;iag=0&amp;icsg=157265919&amp;dssz=22&amp;mdo=0&amp;mso=8&amp;u_tz=480&amp;u_his=3&amp;u_java=0&amp;u_h=768&amp;u_w=1366&amp;u_ah=728&amp;u_aw=1366&amp;u_cd=24&amp;u_nplug=3&amp;u_nmime=4&amp;adx=159&amp;ady=871&amp;biw=1349&amp;bih=507&amp;scr_x=0&amp;scr_y=150&amp;eid=21066085&amp;oid=3&amp;pvsid=214054375702251&amp;pem=791&amp;rx=0&amp;eae=0&amp;fc=896&amp;brdim=0%2C0%2C0%2C0%2C1366%2C0%2C1366%2C728%2C1366%2C507&amp;vis=1&amp;rsz=o%7C%7CeEbr%7C&amp;abl=CS&amp;pfx=0&amp;fu=8216&amp;bc=23&amp;ifi=1&amp;uci=a!1&amp;btvi=1&amp;fsb=1&amp;xpc=N8CqulKuFj&amp;p=http%3A//www.jq22.com&amp;dtd=210" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!1" data-google-query-id="CPKwn9SXrekCFZNliwodARUE4w" data-load-complete="true"></iframe></ins></ins></ins>-->
+                    <!--<script>-->
+                        <!--(adsbygoogle = window.adsbygoogle || []).push({});-->
+                    <!--</script>-->
+                <!--</div>-->
+                <!--<div class="thumbile">-->
+                    <!--<a href="http://www.jq22.com/yanshi9082" target="_blank" class="btn btn-success"><i class="fa fa-eye"></i> &nbsp;查看演示</a>-->
+                    <!--<a href="" target="_blank" class="btn btn-info" style="display:none"><i class="fa fa-globe"></i> &nbsp;website</a>-->
+                    <!--<a href="javascript:void(0)" onclick="mydown()" class="btn btn-danger btn-danet" data-toggle="modal" data-target="#mydown"><i class="fa fa-cloud-download"></i> &nbsp;立即下载</a>-->
+                    <!--<a class="btn jcjg" style="line-height: 28px;"><img src="img/jcjg.png"></a>-->
+                <!--</div>-->
+                <!--<div class="alert cjms" role="alert">插件描述：jQuery导航菜单 适用于后台网站侧边多级下拉导航菜单</div>-->
+                <!--<p>jQuery导航菜单 适用于后台网站侧边多级下拉导航菜单<br></p><p><br></p>-->
+                <!--<ul class="x-top" style="padding-left:0px">-->
+                    <!--<div class="fy f zhs"><span class="jg35">PREVIOUS:</span></div>-->
+                    <!--<div class="fy f txtRight zhs"><span class="jg352">NEXT:</span></div>-->
+                    <!--<div class="fy f"><a class="PREVIOUS" href="http://www.jq22.com/jquery-info9086"> 粒子效果插件 </a> </div>-->
+                    <!--<div class="fy f txtRight"><a class="NEXT" href="http://www.jq22.com/jquery-info9076"> jquery仿flash产品图片多角度展示特效代码 </a> </div>-->
+                    <!--<div class="dr"></div>-->
+                    <!--<div class="df"></div>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="in100">-->
+                <!--<div class="row" style="padding:0px 20px 10px 20px">-->
+                    <!--<div class="f z16"> 相关插件-垂直导航</div>-->
+                    <!--<div class="r z16"><a href="jquery-plugins垂直导航-1-jq"> 查看更多 <i class="fa fa-angle-right"></i></a></div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 col-md-3 col-sm-4">-->
+                    <!--<a href="http://www.jq22.com/jquery-info4080">-->
+                        <!--<img src="//assets.jq22.com/plugin/2015-09-09-11-09-27.png"></a>-->
+                    <!--<div class="cover-info">-->
+                        <!--<a href="http://www.jq22.com/jquery-info4080">-->
+                            <!--<h4>最强大的手机侧栏</h4>-->
+                        <!--</a>-->
+                        <!--<small>html5 css3手机侧栏侧栏,完美兼容移动端开发</small>-->
+                    <!--</div>-->
+                    <!--<div class="cover-fields">-->
+                        <!--<i class="fa fa-list-ul"></i>&nbsp;-->
+                        <!--垂直导航-->
+                    <!--</div>-->
+                    <!--<div class="cover-stat">-->
+                        <!--<i class="fa fa-eye"></i><span class="f10">&nbsp;40281</span>-->
+                        <!--<i class="fa fa-heart"></i><span class="f10"> &nbsp;578</span>-->
+                        <!--<div class="cover-yh">-->
+                            <!--<a href="http://www.jq22.com/mem121626" data-container="body" data-toggle="popover" data-placement="top" data-content="一个你熟悉的陌生人 " data-original-title="" title="">-->
+                                <!--<i class="fa fa-user-secret"></i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 col-md-3 col-sm-4">-->
+                    <!--<a href="http://www.jq22.com/jquery-info18264">-->
+                        <!--<img src="//assets.jq22.com/plugin/2018-03-07-11-20-01.png"></a>-->
+                    <!--<div class="cover-info">-->
+                        <!--<a href="http://www.jq22.com/jquery-info18264">-->
+                            <!--<h4>手风琴菜单css3原生jsrem适配左侧竖排导航</h4>-->
+                        <!--</a>-->
+                        <!--<small>样式和效果还可以的使用的rem适配兼容ie</small>-->
+                    <!--</div>-->
+                    <!--<div class="cover-fields">-->
+                        <!--<i class="fa fa-list-ul"></i>&nbsp;-->
+                        <!--垂直导航-->
+                    <!--</div>-->
+                    <!--<div class="cover-stat">-->
+                        <!--<i class="fa fa-eye"></i><span class="f10">&nbsp;37555</span>-->
+                        <!--<i class="fa fa-heart"></i><span class="f10"> &nbsp;279</span>-->
+                        <!--<div class="cover-yh">-->
+                            <!--<a href="http://www.jq22.com/mem645273" data-container="body" data-toggle="popover" data-placement="top" data-content="zhe " data-original-title="" title="">-->
+                                <!--<i class="fa fa-user-secret"></i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 col-md-3 col-sm-4">-->
+                    <!--<a href="http://www.jq22.com/jquery-info1750">-->
+                        <!--<img src="//assets.jq22.com/plugin/pc-dd01df14-9fd4-11e4-ba4e-00163e001348.png"></a>-->
+                    <!--<div class="cover-info">-->
+                        <!--<a href="http://www.jq22.com/jquery-info1750">-->
+                            <!--<h4>jquery弹性竖导航网页菜单</h4>-->
+                        <!--</a>-->
+                        <!--<small>此代码内容为jquery弹性竖导航网页菜单，属于站长常用代码，非常漂亮！</small>-->
+                    <!--</div>-->
+                    <!--<div class="cover-fields">-->
+                        <!--<i class="fa fa-list-ul"></i>&nbsp;-->
+                        <!--垂直导航-->
+                    <!--</div>-->
+                    <!--<div class="cover-stat">-->
+                        <!--<i class="fa fa-eye"></i><span class="f10">&nbsp;26423</span>-->
+                        <!--<i class="fa fa-heart"></i><span class="f10"> &nbsp;185</span>-->
+                        <!--<div class="cover-yh">-->
+                            <!--<a href="http://www.jq22.com/mem36894" data-container="body" data-toggle="popover" data-placement="top" data-content="IamLvtu " data-original-title="" title="">-->
+                                <!--<i class="fa fa-user-secret"></i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 col-md-3 col-sm-4">-->
+                    <!--<a href="http://www.jq22.com/jquery-info16673">-->
+                        <!--<img src="//assets.jq22.com/plugin/2017-11-02-00-25-54.png"></a>-->
+                    <!--<div class="cover-info">-->
+                        <!--<a href="http://www.jq22.com/jquery-info16673">-->
+                            <!--<h4>jQuery条件锚点导航</h4>-->
+                        <!--</a>-->
+                        <!--<small>自动定位锚点导航</small>-->
+                    <!--</div>-->
+                    <!--<div class="cover-fields">-->
+                        <!--<i class="fa fa-list-ul"></i>&nbsp;-->
+                        <!--垂直导航-->
+                    <!--</div>-->
+                    <!--<div class="cover-stat">-->
+                        <!--<i class="fa fa-eye"></i><span class="f10">&nbsp;26128</span>-->
+                        <!--<i class="fa fa-heart"></i><span class="f10"> &nbsp;190</span>-->
+                        <!--<div class="cover-yh">-->
+                            <!--<a href="http://www.jq22.com/mem357" data-container="body" data-toggle="popover" data-placement="top" data-content="许尊少 " data-original-title="" title="">-->
+                                <!--<i class="fa fa-user-secret"></i>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="df"></div>-->
+            <!--</div>-->
+            <!--<div class="in2">-->
+                <!--<h4 class="pyzz">讨论这个项目（69）<span class="z14">回答他人问题或分享插件使用方法奖励jQ币</span> <span class="z14 r"><a href="zlgytest.aspx">评论用户自律公约</a></span></h4>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem603374"><img src="/tx/5.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> yy85661840 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2019/12/31 14:45:27</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--二级没有点击选中效果<br>-->
+                        <!--<a class="hf" name="73381">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div><div class="google-auto-placed" style="clear: none; padding: 0px; margin: 20px 0px 0px 69px; box-sizing: content-box; width: 90%; height: 85px;"><ins data-ad-type="text" data-native-settings-key="d6a94669" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-2935286260943234" data-adsbygoogle-status="done" style="width: 100%; height: 85px; display: inline-block;"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:85px;margin:0;padding:0;position:relative;visibility:visible;width:784px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:85px;margin:0;padding:0;position:relative;visibility:visible;width:784px;background-color:transparent;"><iframe id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0;width:784px;height:85px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="784" height="85" frameborder="0" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-2935286260943234&amp;output=html&amp;h=85&amp;adk=3345203092&amp;adf=1147605198&amp;w=784&amp;lmt=1589247326&amp;nsk=d6a94669&amp;rafmt=11&amp;pwprc=6917038966&amp;psa=1&amp;guci=2.2.0.0.2.2.0.0&amp;ad_type=text_image&amp;format=784x85&amp;url=http%3A%2F%2Fwww.jq22.com%2Fjquery-info9082&amp;flash=0&amp;pra=3&amp;wgl=1&amp;fa=26&amp;adsid=ChAI8O_j9QUQhfG55N22oPF8Ei8Aui8UPyMjXw_mf-vfbVPxdGRsfN4v4w6LZg0FdiOwS9MFJDYgQuK4gXhM1Q-z8w&amp;dt=1589247326821&amp;bpp=4&amp;bdt=1490&amp;idt=-M&amp;shv=r20200506&amp;cbv=r20190131&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3D6463b311731b7890%3AT%3D1589243314%3AS%3DALNI_MbzzV-zycizf0OOkVy9bAQu5u5XeQ&amp;crv=1&amp;prev_fmts=820x90%2C0x0&amp;nras=2&amp;correlator=3909039199986&amp;frm=20&amp;pv=1&amp;ga_vid=2015687502.1589247326&amp;ga_sid=1589247326&amp;ga_hid=1461593868&amp;ga_fc=0&amp;iag=0&amp;icsg=2304749567&amp;dssz=23&amp;mdo=0&amp;mso=8&amp;u_tz=480&amp;u_his=3&amp;u_java=0&amp;u_h=768&amp;u_w=1366&amp;u_ah=728&amp;u_aw=1366&amp;u_cd=24&amp;u_nplug=3&amp;u_nmime=4&amp;adx=203&amp;ady=1906&amp;biw=1349&amp;bih=507&amp;scr_x=0&amp;scr_y=150&amp;eid=21066085&amp;oid=3&amp;pvsid=214054375702251&amp;pem=791&amp;rx=0&amp;eae=0&amp;fc=768&amp;brdim=0%2C0%2C0%2C0%2C1366%2C0%2C1366%2C728%2C1366%2C507&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=8344&amp;bc=23&amp;ifi=2&amp;uci=a!2&amp;btvi=2&amp;fsb=1&amp;xpc=EPM5RJ8vo7&amp;p=http%3A//www.jq22.com&amp;dtd=20" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!2" data-google-query-id="CNvTt9SXrekCFRkhKgodUloJqg" data-load-complete="true"></iframe></ins></ins></ins></div>-->
+
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem593503"><img src="/tx/4.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 主宰沉浮 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2019/3/30 12:56:28</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--很强大，膜拜大神。-->
+                        <!--<a class="hf" name="67066">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem945628"><img src="/tx/22.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 愿得一人心 ? <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/12/20 15:28:03</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--看起来很不错。下载下来研究下。-->
+                        <!--<a class="hf" name="64193">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem953750"><img src="/tx/37.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 橙子 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/11/9 15:39:45</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--这个插件具体还要怎么用，我把插件的东西放到sts中，在引用，有具体的样式，但是没有下拉的效果请问是怎么回事-->
+                        <!--<a class="hf" name="62749">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem90621"><img src="/tx/30.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 苏生不语 <span class="jl" style="display: inline-block;">评论奖励 1 jQ币</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/9/17 10:31:38</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--.sidebar-menu&gt;li&gt;a&gt;.fa<br>添加一个line-height: 20px;可以解决图标对其问题-->
+                        <!--<ul>-->
+                            <!--<div class="pl">-->
+                                <!--<div class="tx tx2"><a href="http://www.jq22.com/mem716930"><img src="/tx/7.png"></a></div>-->
+                                <!--<ul class="plbg plbg2">-->
+                                    <!--<div class="f"> 小蜗牛<span class="jl">0</span></div>-->
+                                    <!--<div class="r"> <span class="z12">2019/4/2 10:56:57</span></div>-->
+                                    <!--<div class="dr"></div>-->
+                                <!--</ul>-->
+                                <!--<ul style="padding-top: 10px; padding-bottom: 10px;word-wrap: break-word;width: 100%">-->
+                                    <!--挺好，就是没有jq币-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</ul>-->
+                        <!--<a class="hf" name="61007">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem656581"><img src="/tx/14.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 酒香缘jxy179 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/6/12 12:21:26</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--好啊，就是没有币！-->
+                        <!--<ul>-->
+                            <!--<div class="pl">-->
+                                <!--<div class="tx tx2"><a href="http://www.jq22.com/mem565895"><img src="/tx/9.png"></a></div>-->
+                                <!--<ul class="plbg plbg2">-->
+                                    <!--<div class="f"> Today<span class="jl">0</span></div>-->
+                                    <!--<div class="r"> <span class="z12">2018/9/4 13:53:37</span></div>-->
+                                    <!--<div class="dr"></div>-->
+                                <!--</ul>-->
+                                <!--<ul style="padding-top: 10px; padding-bottom: 10px;word-wrap: break-word;width: 100%">-->
+                                    <!--好使吗？内容区也不显示。说不定点击按钮时 还是直接刷新菜单还是闭合状态 有软用。。-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</ul>-->
+                        <!--<a class="hf" name="57367">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem850861"><img src="/tx/6.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> mapleleaves <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/6/7 17:44:21</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--看起来很不错的样子-->
+                        <!--<a class="hf" name="57181">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div><div class="google-auto-placed" style="clear: none; padding: 0px; margin: 20px 0px 0px 69px; box-sizing: content-box; width: 90%; height: 85px;"><ins data-ad-type="text" data-native-settings-key="1db2ab16" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-2935286260943234" data-adsbygoogle-status="done" style="width: 100%; height: 85px; display: inline-block;"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:85px;margin:0;padding:0;position:relative;visibility:visible;width:784px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:85px;margin:0;padding:0;position:relative;visibility:visible;width:784px;background-color:transparent;"><iframe id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;border:0;width:784px;height:85px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="784" height="85" frameborder="0" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-2935286260943234&amp;output=html&amp;h=85&amp;adk=3345203092&amp;adf=4184280723&amp;w=784&amp;lmt=1589247326&amp;nsk=1db2ab16&amp;rafmt=11&amp;pwprc=6917038966&amp;psa=1&amp;guci=2.2.0.0.2.2.0.0&amp;ad_type=text_image&amp;format=784x85&amp;url=http%3A%2F%2Fwww.jq22.com%2Fjquery-info9082&amp;flash=0&amp;pra=3&amp;wgl=1&amp;fa=26&amp;adsid=ChAI8O_j9QUQhfG55N22oPF8Ei8Aui8UPyMjXw_mf-vfbVPxdGRsfN4v4w6LZg0FdiOwS9MFJDYgQuK4gXhM1Q-z8w&amp;dt=1589247326821&amp;bpp=2&amp;bdt=1490&amp;idt=2&amp;shv=r20200506&amp;cbv=r20190131&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3D6463b311731b7890%3AT%3D1589243314%3AS%3DALNI_MbzzV-zycizf0OOkVy9bAQu5u5XeQ&amp;crv=1&amp;prev_fmts=820x90%2C0x0%2C784x85&amp;nras=3&amp;correlator=3909039199986&amp;frm=20&amp;pv=1&amp;ga_vid=2015687502.1589247326&amp;ga_sid=1589247326&amp;ga_hid=1461593868&amp;ga_fc=0&amp;iag=0&amp;icsg=10894684159&amp;dssz=24&amp;mdo=0&amp;mso=8&amp;u_tz=480&amp;u_his=3&amp;u_java=0&amp;u_h=768&amp;u_w=1366&amp;u_ah=728&amp;u_aw=1366&amp;u_cd=24&amp;u_nplug=3&amp;u_nmime=4&amp;adx=203&amp;ady=2931&amp;biw=1349&amp;bih=507&amp;scr_x=0&amp;scr_y=150&amp;eid=21066085&amp;oid=3&amp;pvsid=214054375702251&amp;pem=791&amp;rx=0&amp;eae=0&amp;fc=768&amp;brdim=0%2C0%2C0%2C0%2C1366%2C0%2C1366%2C728%2C1366%2C507&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=8344&amp;bc=23&amp;ifi=3&amp;uci=a!3&amp;btvi=3&amp;fsb=1&amp;xpc=43IWowmeqp&amp;p=http%3A//www.jq22.com&amp;dtd=26" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!3" data-google-query-id="CI7Ut9SXrekCFdQYKgodfnsKiA" data-load-complete="true"></iframe></ins></ins></ins></div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem195814"><img src="/tx/21.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> 暧末 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/4/3 11:24:40</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--分享了也没有jq币啊-->
+                        <!--<a class="hf" name="54316">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem449074"><img src="/tx/14.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> wenjie_702 <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2018/1/5 15:00:32</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--<p>字体图标不现实，怎末回事，少什么文件吗？</p>-->
+                        <!--<a class="hf" name="50508">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="pl">-->
+                    <!--<div class="tx"><a href="http://www.jq22.com/mem709732"><img src="/tx/0.png"></a></div>-->
+                    <!--<ul class="plbg">-->
+                        <!--<div class="f"> whm <span class="jl">0</span></div>-->
+                        <!--<div class="r"> <span class="z12">2017/11/30 15:20:56</span></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                    <!--<ul style="word-wrap: break-word;width: 100%">-->
+                        <!--很好不错-->
+                        <!--<ul>-->
+                            <!--<div class="pl">-->
+                                <!--<div class="tx tx2"><a href="http://www.jq22.com/mem712795"><img src="/tx/30.png"></a></div>-->
+                                <!--<ul class="plbg plbg2">-->
+                                    <!--<div class="f"> 飞少<span class="jl">0</span></div>-->
+                                    <!--<div class="r"> <span class="z12">2017/12/4 16:45:31</span></div>-->
+                                    <!--<div class="dr"></div>-->
+                                <!--</ul>-->
+                                <!--<ul style="padding-top: 10px; padding-bottom: 10px;word-wrap: break-word;width: 100%">-->
+                                    <!--<p>不错</p>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</ul>-->
+                        <!--<a class="hf" name="48125">回复</a>-->
+                        <!--<div class="lyhf"></div>-->
+                        <!--<div class="dr"></div>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="text-center z20 top20 pla plb"><a href="message9082"><i class="fa fa-comment" aria-hidden="true"></i> 查看更多评论 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></div>-->
+                <!--<a name="anchor"></a>-->
+                <!--<div class="df dr"></div>-->
+            <!--</div>-->
+            <!--<div class="in2">-->
+                <!--<div id="err" class="alert alert-danger" role="alert" style="display:none"><i class="fa fa-smile-o"></i> 登录后才可以评论</div>-->
+                <!--<div id="err2" class="alert alert-warning" role="alert" style="display:none"><i class="fa fa-smile-o"></i> 30秒后在评论吧!</div>-->
+                <!--<textarea id="textarea1" style="height:200px; width:100%;" placeholder="您有什么想法要说的吗？帮助他人、分享技术会获得奖励！" spellcheck="false"></textarea>-->
+                <!--<div class="r top10">-->
+                    <!--<button onclick="getPlainTxt()" type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">-->
+                        <!--发表评论-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="dr"></div>-->
+            <!--</div>-->
+            <!--<div class="huif">-->
+                <!--<textarea id="textarea2" style="height:150px; width:100%;" placeholder="期待您的回复,帮助他人获得奖励。"></textarea>-->
+                <!--<button onclick="hftj()" type="button" class="btn lyhfbt btn-primary top10">回复</button>-->
+                <!--<a class="qxhf" onclick="qx()" style="padding-top: 10px;">取消回复</a>-->
+            <!--</div>-->
+        </div>
+        <style>
+            .project {
+                background: #fafafa;
+                border-radius: 3px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                width: 96%;
+                margin-left: 2%;
+                margin-right: 2%;
+                position: relative;
+            }
+        </style>
+    </div>
+
+    <div class="col-lg-2 visible-lg" style="width:200px">
+        <!-- 用户信息概览 -->
+        <div class="affd affix" style="width:200px">
+            <ul class="zuo f ">
+                <h6>PROMULGATOR</h6>
+                <a href="../mem155488"><img src="../tx/3.png"></a>
+                <div class="zuox f">
+                    <h4> Tao</h4>
+                    <span><i class="fa fa-map-marker"></i> 湖北省</span>
+                </div>
+                <button type="button" class="btn btn-z top20" onclick="zuozhe()"><i class="fa fa-plus-circle"></i> 关注作者 <span>(321)</span></button>
+                <button type="button" class="btn btn-z top10" onclick="sc()"><i class="fa fa-heart-o"></i> 收藏此插件 <span>(561)</span></button>
+                <a href="shoucangadd.aspx" class="btn  btn-danger top10" style="display:none" id="scs"> 收藏插件以超出上限！<br><b> 点击增加上限数 </b></a>
+                <div class="df"></div>
+            </ul>
+            <div class="df"></div>
+        </div>
+
+        <!--<ul class="list-group" style="margin-bottom:10px">-->
+            <!--<div class="input-group">-->
+                <!--<input type="text" class="form-control" placeholder="搜索插件.." style="height: 34px; margin-top: 8px;" id="searchtxt">-->
+                <!--<span class="input-group-btn">-->
+                    <!--<button class="btn btn-default" type="button" id="seobut" style="border-top-left-radius: 0px;-->
+                        <!--border-bottom-left-radius: 0px; border-left-width: 0px;">-->
+                        <!--<i class="fa fa-search"></i></button>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</ul>-->
+        <!--<ul class="list-group">-->
+            <!--<a class="list-group-item on" href="http://www.jq22.com/jq1-jq1" data-para="time"><i class="fa fa-flag"></i> &nbsp;最新发布</a>-->
+            <!--<a class="list-group-item" href="http://www.jq22.com/jq1-jq4" data-para="comments"><i class="fa fa-heart"></i> &nbsp;最多收藏</a>-->
+            <!--<a class="list-group-item" href="http://www.jq22.com/jq1-jq2" data-para="comments"><i class="fa fa-comments-o"></i> &nbsp;最多评论</a>-->
+            <!--<a class="list-group-item" href="http://www.jq22.com/jq1-jq3" data-para="downloads"><i class="fa fa-arrow-circle-o-down"></i> &nbsp;最多下载</a>-->
+            <!--<a class="list-group-item" href="http://www.jq22.com/jq1-jq8" data-para="ie8"><i class="fa fa-bus"></i> &nbsp;兼容IE8</a>-->
+            <!--<a class="list-group-item" href="http://www.jq22.com/jq1-jq6" data-para="ie6"><i class="fa fa-motorcycle"></i> &nbsp;兼容IE6</a>-->
+        <!--</ul>-->
+        <div class="affd fdtop2 affix" style="width:200px">
+            <ul class="list-group">
+                <a class="list-group-item on" href="https://www.jq22.com/work-jq22-tool" data-para="time"><i class="fa fa-cogs"></i> &nbsp;前端工具库</a>
+                <a class="list-group-item on" href="http://www.jq22.com/cssgsh" data-para="time"><i class="fa fa-css3"></i> &nbsp;css 格式化工具</a>
+                <a class="list-group-item on" href="http://www.jq22.com/jsgsh" data-para="time"><i class="fa fa-code"></i> &nbsp;js 格式化工具</a>
+                <a class="list-group-item on" href="http://www.jq22.com/cdn" data-para="time"><i class="fa fa-rocket"></i> &nbsp;CDN加速</a>
+            </ul>
+            <ul class="list-group" style="margin-top:0px">
+                <button type="button" class="btn btn-info" style="width:100%" onclick="fbcj()">发布资源获得jQ币</button>
+                <a class="btn btn-success top10" style="width:100%" href="https://www.jq22.com/zxzf.aspx">直接获得jQ币</a>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

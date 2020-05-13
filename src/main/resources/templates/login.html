@@ -7,61 +7,40 @@
 <body>
     <h3>login tasktool system</h3>
     <form>
-        <input type="hidden" name="key" th:value="${key}">
         <input type="text" name="username" th:value="${account.username}"><samp th:text="${error}"></samp>
-
         <br/>
         <input type="password" name="password" th:value="${account.password}">
         <br/>
-        <input type="button" onclick="login()" value="login"></input>
+        <input type="button" onclick="login2()" value="login"></input>
     </form>
 
     <a href="/account/register">register new account</a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="/static/js/crypto-js-4.0.0/crypto-js.js"></script>
+    <script src="/static/js/jsencrypt-master/bin/jsencrypt.js"></script>
+    <script src="/static/js/security.js"></script>
     <script>
-        function login(){
-            var $key = $('input[name="key"]').val();
+        function login2(){
             var $userName = $('input[name="username"]').val();
             var $password = $('input[name="password"]').val();
-            // var $verifyCode = $('input[name="verifyCode"]').val();
-//            console.log($userName + ",  " + $password + ", " + $verifyCode + ", " + $key);
             if ($userName == "" || $password == "" ) {
                 alert("用户名、密码、验证码不能为空！");
                 return false;
             }
 
-            var key = CryptoJS.enc.Utf8.parse($key);
-            console.log("key:" + key + ",$key:" + $key);
-            var password = CryptoJS.enc.Utf8.parse($password);
-            var encrypted = CryptoJS.AES.encrypt(password, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
-            var encryptedPwd = encrypted.toString();
-
-           console.log("encrypted:" + encrypted);
-           console.log("encryptedPwd:" + encryptedPwd);
-           {// 解密方法
-                var decrypt = CryptoJS.AES.decrypt(encryptedPwd, key, {
-                    mode: CryptoJS.mode.ECB,
-                    padding: CryptoJS.pad.Pkcs7
-                });
-                var testDecryptStr = CryptoJS.enc.Utf8.stringify(decrypt).toString();
-
-               console.log("decrypt:" + decrypt);
-               console.log("testDecryptStr:" + testDecryptStr);
-            }
+            var encryptedPwd = aesEncrypt($password);
 
             $.ajax({
                 type: "post",
                 url: "/doLogin",
                 data: {
                     username: $userName,
-                    password: encryptedPwd,
-                    key: $key
+                    password: encryptedPwd
                 },
                 dataType: "json",
                 success: function (result) {
-                   console.log(result);
+                    console.log(result);
                     if(result.status == 1)
                     {
                         window.location.href='welcome';
@@ -79,7 +58,6 @@
                 }
             });
         }
-
     </script>
 </body>
 </html>
