@@ -19,4 +19,6 @@ public interface RenwuXinxiService extends IService<RenwuXinxi> {
 
     //监督人判定任务完成后，调用该接口完成任务执行人的任务收益结算
     public Object shouyiJiesuan(int renwuId, int accountId);
+
+    Object delRenwuAndXiangguan(Long id);
 }

@@ -75,7 +75,7 @@ public class SysRadioTagProcessor extends AbstractElementTagProcessor {
 
         // 这里是将字典的内容拼装成一个下拉框
         for (SysDictData dict : dictList) {
-            model.add(modelFactory.createOpenElementTag(String.format("input type='radio' name='%s' value='%s'", dictName, dict.getDictValue())));
+            model.add(modelFactory.createOpenElementTag(String.format("input type='radio' name='%s' value='%s' class='%s'", dictName, dict.getDictValue(), dictClass)));
             model.add(modelFactory.createText(dict.getDictLabel()));
             model.add(modelFactory.createCloseElementTag("input"));
         }

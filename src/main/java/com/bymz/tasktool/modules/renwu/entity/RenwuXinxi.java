@@ -25,7 +25,7 @@ public class RenwuXinxi implements Serializable {
     private int sfwDsrw;//是否为定时任务
     private long sjrwId;//上级任务id
     private int yxj;//优先级
-    private int dcld;//敦促力度大小
+    private int dcld;//敦促力度大小 根据任务的紧要程度来设置
     private Date yjKssj;//预计开始时间
     private Date yjJssj;//预计结束时间
     @Dict(key = "sys_yes_no")

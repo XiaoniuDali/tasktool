@@ -7,7 +7,7 @@
     <meta name="author" content="">
 
     <title>Chain Responsive Bootstrap3 Admin</title>
-
+    <link href="/static/layui/css/layui.css"/>
     <link href="/static/css/style.default.css" rel="stylesheet">
     <link href="/static/css/morris.css" rel="stylesheet">
     <link href="/static/css/select2.css" rel="stylesheet" />
@@ -17,45 +17,82 @@
     <script src="/static/js/html5shiv.js"></script>
     <script src="/static/js/respond.min.js"></script>
     <![endif]-->
+    <style>
+        #main_content{
+            width: 100%;
+            height: 100%;
+        }
 
+        #page_tab_div {
+            width: 100%;
+            padding: 10px;
+            background-color: #f7f7f7;
+        }
+        #page_tab_div .page-tab{
+            margin: 2px;
+            padding: 5px;
+            border: 1px solid #e4e4e4;
+            border-radius:3px;
+        }
+        #page_tab_div .page-tab a{
+            margin-left: 15px;
+        }
+    </style>
 </head>
 
 <body>
+<div id="main_content">
+    <header>
+        <div th:replace="layout/header"></div>
+    </header>
 
-<header>
-    <div th:replace="layout/header">
-    </div>
-</header>
+    <section>
+        <div id="main_wrapper" class="mainwrapper">
+            <div th:replace="layout/leftNav"></div>
 
-<section>
-    <div id="main_wrapper" class="mainwrapper">
-        <div th:replace="layout/leftNav"></div>
+            <div id="main_panel" class="mainpanel" style="position:relative">
+                <div id="page_tab_div">
+                    <span id="show-left-page-btn" style="float: left; margin-right: 5px; display: none;">
+                        <a href="#" onclick="showLeftTab(3)"><i class="glyphicon glyphicon-chevron-left"></i></a> </span>
+                    <span id="tab_list">
+                        <!--<span class="page-tab" id="page-tab-0">-->
+                        <!--<span class="page_title">首页</span><a href="#" ><i class="glyphicon glyphicon-remove"></i></a>-->
+                        <!--</span>-->
+                    </span>
 
-        <div id="main_panel" class="mainpanel">
-            <iframe id="mainBody" name="mainBody" style="width: 100%" frameborder="0" src="/account/register">
+                    <span id="show-right-page-btn" style="float: right; margin-left: 5px; display:none"><i class="glyphicon glyphicon-chevron-right"></i> </span>
+                </div>
+                <div id="page_body">
+                    <!--<div class="page_body_0">-->
+                    <!--<iframe id="iframe_0"  name="iframe_0" style="width: 100%" frameborder="0" src="/renwuXinxi/toAddRenwu">-->
+                    <!--</iframe>-->
+                    <!--</div>-->
+                </div>
 
-            </iframe>
-        </div><!-- mainpanel -->
-    </div><!-- mainwrapper -->
-</section>
 
+            </div><!-- mainpanel -->
+        </div><!-- mainwrapper -->
+    </section>
+</div>
 
 <script src="/static/js/jquery-1.11.1.min.js"></script>
 <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/js/jquery.cookies.js"></script>
+<script src="/static/js/jquery.sparkline.min.js"></script>
+
+<!--<script src="/static/js/flot/jquery.flot.min.js"></script>-->
+<!--<script src="/static/js/flot/jquery.flot.resize.min.js"></script>-->
+<!--<script src="/static/js/flot/jquery.flot.spline.min.js"></script>-->
+
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/modernizr.min.js"></script>
 <script src="/static/js/pace.min.js"></script>
 <script src="/static/js/retina.min.js"></script>
-<script src="/static/js/jquery.cookies.js"></script>
 
-<script src="/static/js/flot/jquery.flot.min.js"></script>
-<script src="/static/js/flot/jquery.flot.resize.min.js"></script>
-<script src="/static/js/flot/jquery.flot.spline.min.js"></script>
-<script src="/static/js/jquery.sparkline.min.js"></script>
-<script src="/static/js/morris.min.js"></script>
-<script src="/static/js/raphael-2.1.0.min.js"></script>
-<script src="/static/js/bootstrap-wizard.min.js"></script>
-<script src="/static/js/select2.min.js"></script>
+<!--<script src="/static/js/morris.min.js"></script>-->
+<!--<script src="/static/js/raphael-2.1.0.min.js"></script>-->
+<!--<script src="/static/js/bootstrap-wizard.min.js"></script>-->
+<!--<script src="/static/js/select2.min.js"></script>-->
 
 <script src="/static/js/custom.js"></script>
 <script src="/static/js/dashboard.js"></script>
@@ -64,22 +101,8 @@
 <script src="/static/js/jsencrypt-master/bin/jsencrypt.js"></script>
 <script src="/static/js/security.js"></script>
 
-<script>
+<script src="/static/layui/layui.js"></script>
 
-    function setIframeSize(iframe) {
-        if (iframe) {
-            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-            if (iframeWin.document.body) {
-                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-                document.getElementById("main_panel").width =
-                document.getElementById('main_wrapper').offsetWidth - document.getElementById('left_panel').offsetWidth;
-            }
-        }
-    };
-
-    window.onload = function () {
-        setIframeSize(document.getElementById('mainBody'));
-    };
-</script>
+<script src="/static/modules/js/main/main.js"></script>
 </body>
 </html>

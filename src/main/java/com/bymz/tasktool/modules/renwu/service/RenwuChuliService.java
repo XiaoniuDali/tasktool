@@ -22,6 +22,13 @@ public interface RenwuChuliService extends IService<RenwuChuli> {
     public Object jujueRenwu(long renwuId, long accountId);
 
     /**
+     * 开始任务
+     * @param renwuChuliId 任务处理信息id
+     * @return
+     */
+    public Object kaishiRenwu(long renwuChuliId);
+
+    /**
      * 完成任务
      * @param renwuId 任务id
      * @param accountId 用户id

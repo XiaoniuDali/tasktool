@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sys="">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -10,7 +10,13 @@
 
         <link href="/static/css/style.default.css" rel="stylesheet">
         <link href="/static/css/morris.css" rel="stylesheet">
+
+        <link href="/static/css/jquery.tagsinput.css" rel="stylesheet" />
+        <link href="/static/css/toggles.css" rel="stylesheet" />
+        <link href="/static/css/bootstrap-timepicker.min.css" rel="stylesheet" />
         <link href="/static/css/select2.css" rel="stylesheet" />
+        <link href="/static/css/colorpicker.css" rel="stylesheet" />
+        <link href="/static/css/dropzone.css" rel="stylesheet" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -21,26 +27,26 @@
 
     <body>
 
-        <div class="pageheader">
-            <div class="media">
-                <div class="pageicon pull-left">
-                    <i class="fa fa-pencil"></i>
-                </div>
-                <div class="media-body">
-                    <ul class="breadcrumb">
-                        <li><a href="form-wizards.html"><i class="glyphicon glyphicon-home"></i></a></li>
-                        <li><a href="form-wizards.html">Forms</a></li>
-                        <li>Form Wizard</li>
-                    </ul>
-                    <h4>Form Wizard</h4>
-                </div>
-            </div><!-- media -->
-        </div><!-- pageheader -->
+        <!--<div class="pageheader">-->
+            <!--<div class="media">-->
+                <!--<div class="pageicon pull-left">-->
+                    <!--<i class="fa fa-pencil"></i>-->
+                <!--</div>-->
+                <!--<div class="media-body">-->
+                    <!--<ul class="breadcrumb">-->
+                        <!--<li><a href="form-wizards.html"><i class="glyphicon glyphicon-home"></i></a></li>-->
+                        <!--<li><a href="form-wizards.html">Forms</a></li>-->
+                        <!--<li>Form Wizard</li>-->
+                    <!--</ul>-->
+                    <!--<h4>Form Wizard</h4>-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash; media &ndash;&gt;-->
+        <!--</div>&lt;!&ndash; pageheader &ndash;&gt;-->
 
         <div class="contentpanel contentpanel-wizard">
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <h5 class="lg-title">Basic Wizard</h5>
                     <p class="mb20">This basic wizard have no form validation and allows you to skip to another step by clicking on the tab.</p>
 
@@ -55,32 +61,93 @@
                         <div class="tab-content">
                             <div class="tab-pane" id="tab1">
                                 <div class="form-group">
-                                    <label class="col-sm-4">Firstname</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="firstname" class="form-control" />
+                                    <label class="col-sm-2">任务名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="renwuMingcheng" class="form-control" required/>
                                     </div>
-                                </div><!-- form-group -->
-
+                                </div><!-- 任务名称 -->
                                 <div class="form-group">
-                                    <label class="col-sm-4">Lastname</label>
-                                    <div class="col-sm-8">
+                                    <label class="col-sm-2">任务目标</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="renwuMubiao" class="form-control"></textarea>
+
+                                    </div>
+                                </div><!-- 任务目标 -->
+                                <div class="form-group">
+                                    <label class="col-sm-2">难度系数</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="renwuNdxs" id="renwuNdxs" class="form-control" />
+                                    </div>
+
+                                    <label class="col-sm-2">任务类型</label>
+                                    <sys:dict divClass="col-sm-4"
+                                              name="renwuLeixing" class="width300"
+                                              dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                    </sys:dict>
+                                </div> <!-- 难度系数与任务类型 -->
+                                <div class="form-group">
+                                    <label class="col-sm-2">是否为工作任务</label>
+                                    <sys:dict divClass="col-sm-4"
+                                              name="sfwGzrw" class="width300"
+                                              dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                    </sys:dict>
+                                    <label class="col-sm-2">是否为定时任务</label>
+                                    <sys:dict divClass="col-sm-4"
+                                              name="sfwDsrw" class="width300"
+                                              dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                    </sys:dict>
+                                </div>
+                                <div class="form-group"><!-- 预计开始时间选择 -->
+                                    <label class="col-sm-2">预计开始日期</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjKssjDate">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div><!-- input-group -->
+
+                                    </div>
+                                    <label class="col-sm-2">预计开始时间</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                            <div class="bootstrap-timepicker"><input id="yjKssjTime" type="text" class="form-control"/></div>
+                                        </div><!-- input-group -->
+                                    </div>
+                                </div><!-- 预计开始时间选择 -->
+                                <div class="form-group"> <!-- 预计结束时间选择 -->
+                                    <label class="col-sm-2">预计结束日期</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjJssjDate">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div><!-- input-group -->
+
+                                    </div>
+                                    <label class="col-sm-2">预计结束时间</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                            <div class="bootstrap-timepicker"><input id="yjJssjTime" type="text" class="form-control"/></div>
+                                        </div><!-- input-group -->
+                                    </div>
+                                </div> <!-- 预计结束时间选择 -->
+                                <div class="form-group">
+                                    <label class="col-sm-1">是否允许多人执行</label>
+                                    <div class="col-sm-3">
+                                        <div id="sfyxDrzx" class="toggle  toggle-primary"></div>
+                                    </div>
+
+                                    <label class="col-sm-1">Lastname</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="lastname" class="form-control" />
+                                    </div>
+
+                                    <label class="col-sm-1">Lastname</label>
+                                    <div class="col-sm-3">
                                         <input type="text" name="lastname" class="form-control" />
                                     </div>
                                 </div><!-- form-group -->
 
-                                <div class="form-group">
-                                    <label class="col-sm-4">Gender</label>
-                                    <div class="col-sm-8">
-                                        <div class="rdio rdio-primary">
-                                            <input type="radio" checked="checked" id="male" value="m" name="radio">
-                                            <label for="male">Male</label>
-                                        </div>
-                                        <div class="rdio rdio-primary">
-                                            <input type="radio" value="f" id="female" name="radio">
-                                            <label for="female">Female</label>
-                                        </div>
-                                    </div>
-                                </div><!-- form-group -->
                             </div><!-- tab-pane -->
 
                             <div class="tab-pane" id="tab2">
@@ -157,131 +224,6 @@
                         </ul>
 
                     </form><!-- #basicWizard -->
-
-                </div><!-- col-md-6 -->
-
-                <div class="col-md-6">
-                    <h5 class="lg-title">Wizard with Progress Bar</h5>
-                    <p class="mb20">Same with basic wizard setup but with progress bar.</p>
-
-                    <!-- PROGRESS WIZARD -->
-                    <form method="post" id="progressWizard" class="panel-wizard">
-                        <ul class="nav nav-justified nav-wizard">
-                            <li><a href="form-wizards.html#tab1-2" data-toggle="tab"><strong>Step 1:</strong> Basic Info</a></li>
-                            <li><a href="form-wizards.html#tab2-2" data-toggle="tab"><strong>Step 2:</strong> Product Info</a></li>
-                            <li><a href="form-wizards.html#tab3-2" data-toggle="tab"><strong>Step 3:</strong> Payment</a></li>
-                        </ul>
-
-                        <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-
-                        <div class="tab-content">
-
-                            <div class="tab-pane" id="tab1-2">
-                                <div class="form-group">
-                                    <label class="col-sm-4">Firstname</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="firstname" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">Lastname</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="lastname" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">Gender</label>
-                                    <div class="col-sm-8">
-                                        <div class="rdio rdio-primary">
-                                            <input type="radio" checked="checked" id="male2" value="m" name="radio">
-                                            <label for="male2">Male</label>
-                                        </div>
-                                        <div class="rdio rdio-primary">
-                                            <input type="radio" value="f" id="female2" name="radio">
-                                            <label for="female2">Female</label>
-                                        </div>
-                                    </div>
-                                </div><!-- form-group -->
-                            </div><!-- tab-pane -->
-
-                            <div class="tab-pane" id="tab2-2">
-                                <div class="form-group">
-                                    <label class="col-sm-4">Product ID</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" name="product_id" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">Product Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="product_name" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">Category</label>
-                                    <div class="col-sm-4">
-                                        <select class="width100p" data-placeholder="Choose One">
-                                            <option value="">Choose One</option>
-                                            <option value="">3D Animation</option>
-                                            <option value="">Web Design</option>
-                                            <option value="">Software Engineering</option>
-                                        </select>
-                                    </div>
-                                </div><!-- form-group -->
-                            </div><!-- tab-pane -->
-
-                            <div class="tab-pane" id="tab3-2">
-                                <div class="form-group">
-                                    <label class="col-sm-4">Card No</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="cardno" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">Expiration</label>
-                                    <div class="col-sm-4">
-                                        <select class="width100p" data-placeholder="Month">
-                                            <option value="">Choose One</option>
-                                            <option value="">January</option>
-                                            <option value="">February</option>
-                                            <option value="">March</option>
-                                            <option value="">...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <select class="width100p" data-placeholder="Year">
-                                            <option value="">Choose One</option>
-                                            <option value="">2013</option>
-                                            <option value="">2014</option>
-                                            <option value="">2015</option>
-                                            <option value="">...</option>
-                                        </select>
-                                    </div>
-                                </div><!-- form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-4">CSV</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="csv" class="form-control" />
-                                    </div>
-                                </div><!-- form-group -->
-                            </div><!-- tab-pane -->
-                        </div><!-- tab-content -->
-
-                        <ul class="list-unstyled wizard">
-                            <li class="pull-left previous"><button type="button" class="btn btn-default">Previous</button></li>
-                            <li class="pull-right next"><button type="button" class="btn btn-primary">Next</button></li>
-                            <li class="pull-right finish hide"><button type="submit" class="btn btn-primary">Finish</button></li>
-                        </ul>
-
-                    </form><!-- panel-wizard -->
 
                 </div><!-- col-md-6 -->
 
@@ -586,140 +528,24 @@
         <script src="/static/js/jquery.cookies.js"></script>
 
         <script src="/static/js/bootstrap-wizard.min.js"></script>
-        <script src="/static/js/jquery.validate.min.js"></script>
+
+
+
+
+        <script src="/static/js/jquery.autogrow-textarea.js"></script>
+        <script src="/static/js/jquery.mousewheel.js"></script>
+        <script src="/static/js/jquery.tagsinput.min.js"></script>
+        <script src="/static/js/toggles.min.js"></script>
+        <script src="/static/js/bootstrap-timepicker.min.js"></script>
+        <script src="/static/js/jquery.maskedinput.min.js"></script>
         <script src="/static/js/select2.min.js"></script>
+        <script src="/static/js/colorpicker.js"></script>
+        <script src="/static/js/dropzone.min.js"></script>
+
+        <script src="/static/js/jquery.validate.min.js"></script>
 
         <script src="/static/js/custom.js"></script>
-        <script>
-
-            // alert(window.parent.AES_KEY);//
-
-
-            jQuery(document).ready(function() {
-                
-                // This will empty first option in select to enable placeholder
-                jQuery('select option:first-child').text('');
-                
-                // Select2
-                jQuery("select").select2({
-                    minimumResultsForSearch: -1
-                });
-                
-                // Basic Wizard
-                jQuery('#basicWizard').bootstrapWizard({
-                    onTabShow: function(tab, navigation, index) {
-                        tab.prevAll().addClass('done');
-                        tab.nextAll().removeClass('done');
-                        tab.removeClass('done');
-                        
-                        var $total = navigation.find('li').length;
-                        var $current = index + 1;
-                        
-                        if($current >= $total) {
-                            $('#basicWizard').find('.wizard .next').addClass('hide');
-                            $('#basicWizard').find('.wizard .finish').removeClass('hide');
-                        } else {
-                            $('#basicWizard').find('.wizard .next').removeClass('hide');
-                            $('#basicWizard').find('.wizard .finish').addClass('hide');
-                        }
-                    }
-                });
-                
-                // Progress Wizard
-                jQuery('#progressWizard').bootstrapWizard({
-                    onTabShow: function(tab, navigation, index) {
-                        tab.prevAll().addClass('done');
-                        tab.nextAll().removeClass('done');
-                        tab.removeClass('done');
-                        
-                        var $total = navigation.find('li').length;
-                        var $current = index + 1;
-                        
-                        if($current >= $total) {
-                            $('#progressWizard').find('.wizard .next').addClass('hide');
-                            $('#progressWizard').find('.wizard .finish').removeClass('hide');
-                        } else {
-                            $('#progressWizard').find('.wizard .next').removeClass('hide');
-                            $('#progressWizard').find('.wizard .finish').addClass('hide');
-                        }
-                        
-                        var $percent = ($current/$total) * 100;
-                        $('#progressWizard').find('.progress-bar').css('width', $percent+'%');
-                    }
-                });
-                
-                // Wizard With Disabled Tab Click
-                jQuery('#tabWizard').bootstrapWizard({
-                    onTabShow: function(tab, navigation, index) {
-                        tab.prevAll().addClass('done');
-                        tab.nextAll().removeClass('done');
-                        tab.removeClass('done');
-                        
-                        var $total = navigation.find('li').length;
-                        var $current = index + 1;
-                        
-                        if($current >= $total) {
-                            $('#tabWizard').find('.wizard .next').addClass('hide');
-                            $('#tabWizard').find('.wizard .finish').removeClass('hide');
-                        } else {
-                            $('#tabWizard').find('.wizard .next').removeClass('hide');
-                            $('#tabWizard').find('.wizard .finish').addClass('hide');
-                        }
-                    },
-                    onTabClick: function(tab, navigation, index) {
-                        return false;
-                    }
-                });
-                
-                // Wizard With Form Validation
-                jQuery('#valWizard').bootstrapWizard({
-                    onTabShow: function(tab, navigation, index) {
-                        tab.prevAll().addClass('done');
-                        tab.nextAll().removeClass('done');
-                        tab.removeClass('done');
-                        
-                        var $total = navigation.find('li').length;
-                        var $current = index + 1;
-                        
-                        if($current >= $total) {
-                            $('#valWizard').find('.wizard .next').addClass('hide');
-                            $('#valWizard').find('.wizard .finish').removeClass('hide');
-                        } else {
-                            $('#valWizard').find('.wizard .next').removeClass('hide');
-                            $('#valWizard').find('.wizard .finish').addClass('hide');
-                        }
-                    },
-                    onTabClick: function(tab, navigation, index) {
-                        return false;
-                    },
-                    onNext: function(tab, navigation, index) {
-                        var $valid = jQuery('#valWizard').valid();
-                        if (!$valid) {
-                            $validator.focusInvalid();
-                            return false;
-                        }
-                    }
-                });
-                
-                // Wizard With Form Validation
-                var $validator = jQuery("#valWizard").validate({
-                    highlight: function(element) {
-                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                    },
-                    success: function(element) {
-                        jQuery(element).closest('.form-group').removeClass('has-error');
-                    }
-                });
-                
-                
-                // This will submit the basicWizard form
-                jQuery('.panel-wizard').submit(function() {    
-                    alert('This will submit the form wizard');
-                    return false // remove this to submit to specified action url
-                });
-
-            });
-        </script>
+        <script src="/static/modules/js/renwu/renwuXinxi.js"></script>
 
     </body>
 </html>

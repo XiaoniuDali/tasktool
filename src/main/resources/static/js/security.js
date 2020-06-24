@@ -1,12 +1,14 @@
 var AES_KEY;// AES算法的密钥
-var AES_KEY_SEND_STATUS = false; // AES算法的密钥发送状态，true表示成功发送到服务器
+var AES_KEY_SEND_STATUS = false; // 判断AES算法的密钥是否发送到服务器的标志，true表示成功发送到服务器，
 var RSA_PUBLIC_KEY;// RSA算法的公钥，需要从服务器获得
 
 
 initSecurity();
 
 function initSecurity(){
+    //生成AES密钥
     AES_KEY = createAesKey();
+
     //从服务器获得RSA算法的公钥
     $.ajax({
         url:'/security/getRsaPublicKey',
@@ -34,8 +36,8 @@ function initSecurity(){
 //生成AES密钥
 function createAesKey(){
     var result='';
-    for(var i=0;i<16;i++){
-        result+=Math.floor(Math.random()*16).toString(16);//获取0-15并通过toString转16进制
+    for(var i = 0; i < 16; i ++){
+        result += Math.floor(Math.random() * 16).toString(16);//获取0-15并通过toString转16进制
     }
     return result.toUpperCase();
 }

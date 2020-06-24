@@ -24,12 +24,20 @@ public class SysDictDataController {
     @Autowired
     private SysDictDataService service;
 
+    @RequestMapping("/toList")
+    public String toList(){
+        return "/sys/dict/list";
+    }
+
     @RequestMapping("/queryPage")
     @ResponseBody
     public Map<String, Object> queryPage(@RequestParam Map<String, Object> params) {
         Map<String, Object> result = new HashMap<>();
         PageData page = service.queryPage(params);
-        result.put("page", page);
+//        result.put("page", page);
+        result.put("code", 0);
+        result.put("count",page.getTotalCount());
+        result.put("data", page.getList());
         return result;
     }
 
@@ -38,6 +46,16 @@ public class SysDictDataController {
     @ResponseBody
     public List<SysDictData> getAll(){
         return dao.selectList(null);
+    }
+
+    @RequestMapping("/find")
+    @ResponseBody
+    public Map<String, Object> find(){
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", 0);
+        data.put("count",3);
+        data.put("data", service.list());
+        return data;
     }
 
     @RequestMapping("/findByDictType")

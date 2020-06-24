@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<body>
+    <table id="demo" lay-filter="test"></table>
+
+
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script>
+
+    var selectObj = new Map();
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/renwuJiangliShezhi/list'
+            // ,page: true
+            // ,data: []
+            ,cols: [
+                [
+                    {type: 'checkbox'}
+                    ,{field: 'jiangliTiaojian', title: '奖励条件', width:180}
+                    ,{field: 'jiangliLiyou', title: '奖励理由', width:120, sort: true}
+                    // ,{fixed: 'right', title: '操作', width:190, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ]
+            ]
+            ,toolbar: '#toolbarDemo'
+        });
+
+
+        //监听事件
+        table.on('toolbar(test)', function(obj){
+            // var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    layer.msg('添加');
+                    var oldData =  table.cache["demo"];
+                    var data1={"userId" : "2333", "username": "xxxxxxxxx"};
+                    oldData.push(data1);
+                    table.reload('demo',{
+                        data : oldData
+                    });
+
+                    break;
+                case 'delete':
+                    layer.msg('删除');
+                    break;
+                case 'update':
+                    layer.msg('编辑');
+                    break;
+                case 'save':
+                    // layer.msg('编辑');
+                    var oldData =  table.cache["demo"];
+
+                    var jsonData = {
+                        intValue: 2333,
+                        doubleValue: 2.333,
+                        stringValue: '2333',
+                        dateValue: '2020-06-19 10:23:33',
+                        accounts: [
+                            {userId: '11',username: 'cao'},
+                            {userId: '2233',username: 'cao'}
+                        ]
+                    }
+
+                    // var data = JSON.stringify({accounts: oldData});
+                    var data = JSON.stringify(jsonData);
+
+                    console.log(data);
+
+                    var formData = $("#form_01").parseForm();
+                    formData.accounts = [
+                        {userId: '11',username: 'cao'},
+                        {userId: '2233',username: 'cao'}
+                    ];
+                    data = JSON.stringify(formData);
+                    console.log(JSON.stringify(formData));
+
+                    $.ajax({
+                        url: '/test/saveAccounts',
+                        type: 'post',
+                        data: data,
+                        dataType: 'json',
+                        contentType:"application/json;charset=UTF-8",
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    });
+                    break;
+            };
+        });
+
+        //以复选框事件为例
+        table.on('checkbox(test)', function(obj){
+            if(obj.checked){
+                selectObj.set(obj.data.id, obj.data);
+            }else {
+                selectObj.delete(obj.data.id);
+            }
+
+            console.log(obj.data)
+        });
+    });
+
+
+
+
+    //扩展jquery的格式化方法
+    $.fn.parseForm=function(){
+        var serializeObj={};
+        var array=this.serializeArray();
+        var str=this.serialize();
+        $(array).each(function(){
+            if(serializeObj[this.name]){
+                if($.isArray(serializeObj[this.name])){
+                    serializeObj[this.name].push(this.value);
+                }else{
+                    serializeObj[this.name]=[serializeObj[this.name],this.value];
+                }
+            }else{
+                serializeObj[this.name]=this.value;
+            }
+        });
+        return serializeObj;
+    };
+</script>
+
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+        <button class="layui-btn layui-btn-sm" lay-event="save">保存</button>
+    </div>
+</script>
+
+
+</body>
+</html>

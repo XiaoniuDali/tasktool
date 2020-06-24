@@ -22,9 +22,9 @@
                     th:text="${status.dictLabel}"></option>
         </select>
         <br/>
-        <sys:dict type="DISEASES_OPTION" name="sys_status" th:value="${account.status}" class="myDictSelect" ></sys:dict>
+        <sys:dict type="DISEASES_OPTION" dictName="sys_yes_no" name="yesOrNo" th:value="${account.status}" class="myDictSelect" ></sys:dict>
         <br/>
-        <sys:dict type="DISEASES_OPTION" name="sys_yes_no" class="myDictSelect" fastOptionValue="100" fastOptionName="请选择是或否"></sys:dict>
+        <sys:dict type="DISEASES_OPTION" dictName="sys_yes_no" name="yesOrNo" class="myDictSelect" fastOptionValue="100" fastOptionName="请选择是或否"></sys:dict>
         <br/>
         <input type="radio" name="aihao" value="单人运动"/>
         <input type="radio" name="aihao" value="多人运动"/>
@@ -34,6 +34,8 @@
 
         <br/>
         <sys:radio type="DISEASES_OPTION" name="sys_yes_no" class="myRadio"></sys:radio>
+        <br/>
+    <sys:dict type="DISEASES_OPTION" name="renwuLeixing" dictName="sys_yes_no" divClass="col-sm-4" class="form-control" fastOptionValue="0" fastOptionName="请选择任务类型"></sys:dict>
         <input type="button" onclick="login()" value="login"/>
     </form>
 

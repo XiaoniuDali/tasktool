@@ -29,11 +29,39 @@ public class RenwuXinxiController {
     public String addRenwu(){
         return "/renwu/AddRenwuXinxi";
     }
+
+    @RequestMapping("/toAddRenwu2")
+    public String addRenwu2(){
+        return "/renwu/AddRenwuXinxi2";
+    }
+
+    @RequestMapping("/toAddRenwu3")
+    public String addRenwu3(){
+        return "/renwu/AddRenwuXinxi3";
+    }
+
+    @RequestMapping("/toAddRenwu4")
+    public String addRenwu4(){
+        return "/renwu/addRenwuXinxi4";
+    }
+
     @RequestMapping("/addRenwu")
     @ResponseBody
-    public Object addRenwu(RenwuXinxi renwuXinxi, List<RenwuChuli> renwuChuliList){
+    public Object addRenwu(RenwuXinxi renwuXinxi){
         resetRenwuXinxi(renwuXinxi);
         return service.addRenwu(renwuXinxi);
+    }
+
+    @RequestMapping("/delRenwu")
+    @ResponseBody
+    public Object delRenwu(long id){
+        return service.removeById(id);
+    }
+
+    @RequestMapping("/delRenwuAndXiangguan")
+    @ResponseBody
+    public Object delRenwuAndXiangguan(Long id){
+        return service.delRenwuAndXiangguan(id);
     }
 
     private void resetRenwuXinxi(RenwuXinxi renwuXinxi) {

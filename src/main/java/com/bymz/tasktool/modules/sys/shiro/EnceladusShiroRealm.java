@@ -13,7 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EnceladusShiroRealm extends AuthorizingRealm {
     @Autowired
     private AccountService accountService;
+/*
+怕事
 
+不求他的鸡巴撒尿，他如果讨厌我，那我也讨厌他！一村人讨厌我，那我就讨厌一村人。
+
+十斤仔姜不如他一斤老姜
+叔公说得中
+六月的甘头，老的才着（着火的意思，通中）
+ */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
@@ -39,7 +47,20 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
         if(null == account){
             return null;
         }
+/*
+思绪有点乱，原因是被那么几件事所困扰。首要的自然是工作上的事，就是总感觉工作没做好，担心松哥来敦促我。
 
+
+我家这一房的人的辩论能力都是非常差的，这是为什么呢？也不全是啊，三叔似乎能力稍好，但也有不尽人意之处。
+
+
+辩论能力强的人的特点
+    能分辨黑白
+    以理服人
+
+
+
+ */
         ByteSource bytes = ByteSource.Util.bytes(account.getCredentialsSalt());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(account.getUsername(),
                 account.getPassword(), bytes, getName());

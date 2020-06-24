@@ -1,18 +1,19 @@
 package com.bymz.tasktool.modules.renwu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bymz.tasktool.comon.utils.SpringUtil;
 import com.bymz.tasktool.modules.account.entity.Account;
 import com.bymz.tasktool.modules.renwu.dao.RenwuJiangliDao;
 import com.bymz.tasktool.modules.renwu.dao.RenwuJiangliShezhiDao;
+import com.bymz.tasktool.modules.renwu.dao.RenwuJlxDao;
 import com.bymz.tasktool.modules.renwu.dao.RenwuXinxiDao;
-import com.bymz.tasktool.modules.renwu.entity.RenwuJiangli;
-import com.bymz.tasktool.modules.renwu.entity.RenwuJiangliShezhi;
-import com.bymz.tasktool.modules.renwu.entity.RenwuChuli;
-import com.bymz.tasktool.modules.renwu.entity.RenwuXinxi;
+import com.bymz.tasktool.modules.renwu.entity.*;
 import com.bymz.tasktool.modules.api.IRenwuJiangliJiesuan;
 import com.bymz.tasktool.modules.renwu.service.RenwuXinxiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,13 @@ import java.util.Map;
 @Service("renwuXinxiService")
 public class RenwuXinxiServiceImpl extends ServiceImpl<RenwuXinxiDao, RenwuXinxi> implements RenwuXinxiService {
 
-    private RenwuXinxiDao dao;
     //    @Autowired
     private RenwuJiangliDao jiangliDao;
 //    @Autowired
     private RenwuJiangliShezhiDao jiangliShezhiDao;
+
+    @Autowired
+    private RenwuJlxDao jlxDao;
 
     @Override
     public Map<String, Object> checkNewRenwu() {
@@ -39,7 +42,8 @@ public class RenwuXinxiServiceImpl extends ServiceImpl<RenwuXinxiDao, RenwuXinxi
 
         //保存新增任务到数据库
         super.baseMapper.insert(renwuXinxi);
-        //发送消息给任务候选人
+
+        //发送消息给任务候选执行人
         {
             //找出所有的候选执行人
             List<Object> hxzxrList = new ArrayList<>();
@@ -60,16 +64,11 @@ public class RenwuXinxiServiceImpl extends ServiceImpl<RenwuXinxiDao, RenwuXinxi
 
                 }else{
                     //发送消息给候选执行人
-
-
-
                 }
             }
 
         }
-
-
-        return null;
+        return renwuXinxi;
     }
 
     @Override
@@ -119,9 +118,34 @@ public class RenwuXinxiServiceImpl extends ServiceImpl<RenwuXinxiDao, RenwuXinxi
     }
 
     @Override
-    public Object shouyiJiesuan(int renwuId, int accountId) {
+                                                                                                                public Object shouyiJiesuan(int renwuId, int accountId) {
 
         return null;
+    }
+
+    /**
+     * 根据任务id删除任务信息，已经相关的其他信息，包括奖励项、惩罚项
+     * @param id 任务id
+     * @return
+     */
+    @Override
+    @Transactional
+    public Object delRenwuAndXiangguan(Long id) {
+        int i = baseMapper.deleteById(id);
+        if(1 == i){
+            //删除奖励项
+            QueryWrapper<RenwuJlx> queryWrapper = new QueryWrapper();
+            queryWrapper.eq(0 != id, "renwu_id", id);
+            List<RenwuJlx> list = jlxDao.selectList(queryWrapper);
+//            jlxDao.deleteBatchIds(list);//会报错  报错内容：java.lang.IllegalStateException: Type handler was null on parameter mapping for property '__frch_item_0'. It was either not specified and/or could not be found for the javaType (com.bymz.tasktool.modules.renwu.entity.RenwuJlx) : jdbcType (null) combination.
+
+            List<Long> ids = new ArrayList<>();
+            for(RenwuJlx jlx : list){
+                ids.add(jlx.getId());
+            }
+            jlxDao.deleteBatchIds(ids);
+        }
+        return "ok";
     }
 
 

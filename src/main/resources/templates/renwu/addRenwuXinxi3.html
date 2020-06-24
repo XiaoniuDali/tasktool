@@ -1,0 +1,254 @@
+<!-- 不用向导的方案 -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sys="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Chain Responsive Bootstrap3 Admin</title>
+
+        <link href="/static/css/style.default.css" rel="stylesheet">
+        <link href="/static/css/style.datatables.css" rel="stylesheet">
+        <link href="/static/css/morris.css" rel="stylesheet">
+
+        <link href="/static/css/jquery.tagsinput.css" rel="stylesheet" />
+        <link href="/static/css/toggles.css" rel="stylesheet" />
+        <link href="/static/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+        <link href="/static/css/select2.css" rel="stylesheet" />
+        <link href="/static/css/colorpicker.css" rel="stylesheet" />
+        <link href="/static/css/dropzone.css" rel="stylesheet" />
+
+        <link href="/static/layui/css/layui.css" rel="stylesheet" media="all"/>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv.js"></script>
+        <script src="/static/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+
+        <div class="contentpanel">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div method="post" id="valWizard" class="panel-wizard">
+                        <ul class="nav nav-justified nav-wizard nav-disabled-click">
+                            <li><a href="form-wizards.html#tab1-4" data-toggle="tab"><strong>Step 1:</strong> Basic Info</a></li>
+                            <li><a href="form-wizards.html#tab2-4" data-toggle="tab"><strong>Step 2:</strong> Product Info</a></li>
+                            <li><a href="form-wizards.html#tab3-4" data-toggle="tab"><strong>Step 3:</strong> Payment</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="tab1-4">
+                                <form id="renwu-xinxi-form" method="post" action="/renwuXinxi/addRenwu">
+                                    <div class="form-group">
+                                        <label class="col-sm-2">任务名称</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="renwuMingcheng" class="form-control"/>
+                                        </div>
+                                    </div><!-- 任务名称 -->
+                                    <div class="form-group">
+                                        <label class="col-sm-2">任务目标</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="renwuMubiao" class="form-control"></textarea>
+
+                                        </div>
+                                    </div><!-- 任务目标 -->
+                                    <div class="form-group">
+                                        <label class="col-sm-2">难度系数</label>
+                                        <div class="col-sm-4">
+                                            <!--<input type="text" name="renwuNdxs" id="renwuNdxs" class="form-control" />-->
+                                            <div id="renwuNdxs"></div>
+                                        </div>
+
+                                        <label class="col-sm-2">任务类型</label>
+                                        <sys:dict divClass="col-sm-4"
+                                                  name="renwuLeixing" class="width300"
+                                                  dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                        </sys:dict>
+                                    </div> <!-- 难度系数与任务类型 -->
+                                    <div class="form-group">
+                                        <label class="col-sm-2">是否为工作任务</label>
+                                        <sys:dict divClass="col-sm-4"
+                                                  name="sfwGzrw" class="width300"
+                                                  dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                        </sys:dict>
+                                        <label class="col-sm-2">是否为定时任务</label>
+                                        <sys:dict divClass="col-sm-4"
+                                                  name="sfwDsrw" class="width300"
+                                                  dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                                        </sys:dict>
+                                    </div>
+                                    <div class="form-group"><!-- 预计开始时间选择 -->
+                                        <label class="col-sm-2">预计开始日期</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjKssjDate">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div><!-- input-group -->
+
+                                        </div>
+                                        <label class="col-sm-2">预计开始时间</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group mb15">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                <div class="bootstrap-timepicker"><input id="yjKssjTime" type="text" class="form-control"/></div>
+                                            </div><!-- input-group -->
+                                        </div>
+                                    </div><!-- 预计开始时间选择 -->
+                                    <div class="form-group"> <!-- 预计结束时间选择 -->
+                                        <label class="col-sm-2">预计结束日期</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjJssjDate">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div><!-- input-group -->
+
+                                        </div>
+                                        <label class="col-sm-2">预计结束时间</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group mb15">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                <div class="bootstrap-timepicker"><input id="yjJssjTime" type="text" class="form-control"/></div>
+                                            </div><!-- input-group -->
+                                        </div>
+                                    </div> <!-- 预计结束时间选择 -->
+                                    <div class="form-group">
+                                        <label class="col-sm-2">是否允许多人执行</label>
+                                        <div class="col-sm-2">
+                                            <div id="sfyxDrzx" class="toggle  toggle-primary"></div>
+                                        </div>
+
+                                        <label class="col-sm-1">Lastname</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" name="lastname" class="form-control" />
+                                        </div>
+
+                                        <label class="col-sm-1">Lastname</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" name="lastname" class="form-control" />
+                                        </div>
+                                    </div><!-- form-group -->
+                                </form><!-- 任务信息表单 -->
+                            </div><!-- tab-pane -->
+
+                            <div class="tab-pane" id="tab2-4">
+                                <table id="demo" lay-filter="test"></table>
+                            </div><!-- tab-pane -->
+
+                            <div class="tab-pane" id="tab3-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4">Card No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="cardno" class="form-control" />
+                                    </div>
+                                </div><!-- form-group -->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4">Expiration</label>
+                                    <div class="col-sm-4">
+                                        <select class="width100p" data-placeholder="Month" required>
+                                            <option value="">Choose One</option>
+                                            <option value="">January</option>
+                                            <option value="">February</option>
+                                            <option value="">March</option>
+                                            <option value="">...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select class="width100p" data-placeholder="Year" required>
+                                            <option value="">Choose One</option>
+                                            <option value="">2013</option>
+                                            <option value="">2014</option>
+                                            <option value="">2015</option>
+                                            <option value="">...</option>
+                                        </select>
+                                    </div>
+                                </div><!-- form-group -->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4">CSV</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="csv" class="form-control" />
+                                    </div>
+                                </div><!-- form-group -->
+                            </div><!-- tab-pane -->
+                        </div><!-- tab-content -->
+
+                        <ul class="list-unstyled wizard">
+                            <li class="pull-left previous"><button type="button" class="btn btn-default">Previous</button></li>
+                            <li class="pull-right next"><button type="button" class="btn btn-primary">Next</button></li>
+                            <li class="pull-right finish hide"><button type="submit" class="btn btn-primary">Finish</button></li>
+                        </ul>
+
+                    </div><!-- panel-wizard -->
+                    <!-- BASIC WIZARD -->
+
+
+                </div><!-- col-md-6 -->
+
+            </div><!-- row -->
+
+        </div><!-- contentpanel -->
+
+
+
+        <script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/static/js/jquery-ui-1.10.3.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/modernizr.min.js"></script>
+        <script src="/static/js/pace.min.js"></script>
+        <script src="/static/js/retina.min.js"></script>
+        <script src="/static/js/jquery.cookies.js"></script>
+
+        <script src="/static/js/bootstrap-wizard.min.js"></script>
+
+        <script src="/static/js/jquery.autogrow-textarea.js"></script>
+        <script src="/static/js/jquery.mousewheel.js"></script>
+        <script src="/static/js/jquery.tagsinput.min.js"></script>
+        <script src="/static/js/toggles.min.js"></script>
+        <script src="/static/js/bootstrap-timepicker.min.js"></script>
+        <script src="/static/js/jquery.maskedinput.min.js"></script>
+        <script src="/static/js/select2.min.js"></script>
+        <script src="/static/js/colorpicker.js"></script>
+        <script src="/static/js/dropzone.min.js"></script>
+
+        <script src="/static/js/jquery.validate.min.js"></script>
+
+        <script src="/static/js/custom.js"></script>
+
+        <script src="/static/layui/layui.js"></script>
+
+        <script src="/static/js/jquery.dataTables.min.js"></script>
+        <script src="http://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+        <script src="http://cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.js"></script>
+
+        <script src="/static/modules/js/renwu/renwuXinxi3.js"></script>
+
+
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+                <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+                <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+                <button class="layui-btn layui-btn-sm" lay-event="save">保存</button>
+            </div>
+        </script>
+
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+            <!-- 这里同样支持 laytpl 语法，如： -->
+            {{#  if(d.auth > 2){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+            {{#  } }}
+        </script>
+    </body>
+</html>

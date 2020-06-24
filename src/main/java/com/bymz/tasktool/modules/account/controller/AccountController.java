@@ -41,9 +41,10 @@ public class AccountController {
         //解密加密的密码
         String aesKey = SecurityUtil.getAesKey(request);
         String password = AesUtils.decrypt(account.getPassword(), aesKey);
+
         account.setPassword(password);
 
-        //对用户设置的密码进行加密，设置加密用的salt
+        //对用户设置的密码进行加密
         PasswordHelper.encryptPassword(account);
 
 //        service.save(account);

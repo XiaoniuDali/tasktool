@@ -23,8 +23,13 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+
+/*
+任务处理业务
+ */
 @Service("renwuChuliService")
 public class RenwuChuliServiceImpl extends ServiceImpl<RenwuChuliDao, RenwuChuli> implements RenwuChuliService {
     @Autowired
@@ -40,13 +45,75 @@ public class RenwuChuliServiceImpl extends ServiceImpl<RenwuChuliDao, RenwuChuli
     @Autowired
     private AccountDao accountDao;
 
+
     @Override
-    public Object jieshouRenwu(long renwuId, long accountId) {
+    public synchronized Object jieshouRenwu(long renwuId, long accountId) {
+        RenwuXinxi renwuXinxi = renwuXinxiDao.selectById(renwuId);
+
+        //如果任务不允许多人同时执行
+        if(renwuXinxi.getSfyxDrzx() == 0){
+            //判断任务是否已经被其他人接收了
+            QueryWrapper<RenwuChuli> wrapper = new QueryWrapper<>();
+            wrapper.eq(true, "renwu_id", renwuId);
+            RenwuChuli renwuChuli = renwuChuliDao.selectOne(wrapper);
+
+            //如果已经被其他人接收了任务
+            if(null != renwuChuli){
+                //提示任务以被其他人接收
+
+            }else{
+                //接收任务
+                RenwuChuli entity = createRenwuChuli(renwuId, accountId, 1);
+                renwuChuliDao.insert(entity);
+            }
+
+        }else{
+            //接收任务
+            RenwuChuli entity = createRenwuChuli(renwuId, accountId, 1);
+            renwuChuliDao.insert(entity);
+        }
+        return null;
+    }
+
+    private RenwuChuli createRenwuChuli(long renwuId, long accountId, int sfJsrw){
+        RenwuChuli renwuChuli = new RenwuChuli();
+        renwuChuli.setRenwuId(renwuId);
+        renwuChuli.setAccountId(accountId);
+        renwuChuli.setShifouJsrw(sfJsrw);
+        renwuChuli.setJieshouShijian(new Date());
+        return renwuChuli;
+    }
+
+
+    @Override
+    public Object jujueRenwu(long renwuId, long accountId) {
         return null;
     }
 
     @Override
-    public Object jujueRenwu(long renwuId, long accountId) {
+    public Object kaishiRenwu(long renwuChuliId) {
+        RenwuChuli renwuChuli = renwuChuliDao.selectById(renwuChuliId);
+        RenwuXinxi renwuXinxi = renwuXinxiDao.selectById(renwuChuli.getRenwuId());
+
+        {//修改任务处理信息
+            renwuChuli.setKaishiRenwuShijian(new Date());
+
+            //如果任务创建人有设置预计开始和结束时间，则计算预计完成时间
+            if(renwuXinxi.getYjJssj() != null && renwuXinxi.getYjJssj() != null){
+                long zxrwSxsj = renwuXinxi.getYjJssj().getTime() - renwuXinxi.getYjKssj().getTime();
+                zxrwSxsj = renwuChuli.getKaishiRenwuShijian().getTime() + zxrwSxsj;
+
+                Date yujiWanchengShijian = new Date();
+                yujiWanchengShijian.setTime(zxrwSxsj);
+
+                renwuChuli.setYujiWanchengShijian(yujiWanchengShijian);
+            }
+
+            renwuChuli.setJindu(0);
+            //计算预计完成时间
+            renwuChuliDao.updateById(renwuChuli);
+
+        }
         return null;
     }
 

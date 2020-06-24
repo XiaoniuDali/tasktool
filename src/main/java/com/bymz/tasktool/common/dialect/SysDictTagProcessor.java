@@ -49,8 +49,10 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
                              IProcessableElementTag iProcessableElementTag,
                              IElementTagStructureHandler iElementTagStructureHandler) {
         //获取标签的属性值
-        String dictType = iProcessableElementTag.getAttributeValue("type");
-        String dictName = iProcessableElementTag.getAttributeValue("name");
+        String divClass = iProcessableElementTag.getAttributeValue("divClass");
+//        String dictType = iProcessableElementTag.getAttributeValue("type");
+        String dictName = iProcessableElementTag.getAttributeValue("dictName");
+        String name = iProcessableElementTag.getAttributeValue("name");
         String dictValue = iProcessableElementTag.getAttributeValue("value");
         String dictClass = iProcessableElementTag.getAttributeValue("class");
         String fastOptionValue = iProcessableElementTag.getAttributeValue("fastOptionValue");
@@ -58,8 +60,8 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
 
         //查询数据库
         //设置参数
-        Map<String,Object> paraMap = new HashMap<String,Object>();
-        paraMap.put("dict_type", dictType);
+//        Map<String,Object> paraMap = new HashMap<String,Object>();
+//        paraMap.put("dict_type", dictType);
 
         // 获取 Spring上下文
 //        ApplicationContext applicationContext = SpringContextUtils.getApplicationContext(iTemplateContext);
@@ -74,8 +76,9 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
         IModelFactory modelFactory = iTemplateContext.getModelFactory();
         IModel model = modelFactory.createModel();
 
+        model.add(modelFactory.createOpenElementTag(String.format("div class='%s'", divClass)));
         // 这里是将字典的内容拼装成一个下拉框
-        model.add(modelFactory.createOpenElementTag(String.format("select name='%s' class='%s'", dictName, dictClass)));
+        model.add(modelFactory.createOpenElementTag(String.format("select name='%s' class='%s'", name, dictClass)));
         if(StringUtils.isNotBlank(fastOptionName)){
             if(StringUtils.isNotBlank(fastOptionValue)){
                 model.add(modelFactory.createOpenElementTag(String.format("option value='%s'", fastOptionValue)));
@@ -83,6 +86,7 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
                 model.add(modelFactory.createOpenElementTag("option value=''"));
             }
             model.add(modelFactory.createText(fastOptionName));
+            model.add(modelFactory.createCloseElementTag("option"));
         }
 
 
@@ -94,6 +98,8 @@ public class SysDictTagProcessor extends AbstractElementTagProcessor {
             model.add(modelFactory.createCloseElementTag("option"));
         }
         model.add(modelFactory.createCloseElementTag("select"));
+
+        model.add(modelFactory.createCloseElementTag("div"));
         // 利用引擎替换整合标签
         iElementTagStructureHandler.replaceWith(model, false);
     }

@@ -15,11 +15,12 @@ public class PasswordHelper {
      * @param user
      */
     public static void encryptPassword(Account user) {
-        // 随机字符串作为salt因子，实际参与运算的salt我们还引入其它干扰因子
+        // 随机生成一个字符串作为salt因子，实际参与运算的salt我们还引入其它干扰因子
         RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
         String salt = randomNumberGenerator.nextBytes().toHex();
         user.setSalt(salt);
 
+        //加密用户密码
         ByteSource bytes = ByteSource.Util.bytes(user.getCredentialsSalt());
         SimpleHash simpleHash = new SimpleHash(ALGORITHM_NAME, user.getPassword(), bytes, HASH_ITERATIONS);
         String newPassword = simpleHash.toHex();

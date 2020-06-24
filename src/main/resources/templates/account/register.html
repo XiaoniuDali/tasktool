@@ -11,7 +11,7 @@
     <link href="/static/css/style.default.css" rel="stylesheet">
     <link href="/static/css/morris.css" rel="stylesheet">
     <link href="/static/css/select2.css" rel="stylesheet" />
-
+    <link href="/static/layui/css/layui.css"/>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -59,29 +59,26 @@
             </form>
 
         </div><!-- panel-body -->
-        <div class="panel-footer">
-            <a href="/account/register" class="btn btn-primary btn-block">Not yet a Member? Create Account Now</a>
-        </div><!-- panel-footer -->
     </div><!-- panel -->
 
 </section>
 
-
+<script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/jquery-1.11.1.min.js"></script>
 <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.cookies.js"></script>
 <script src="/static/js/modernizr.min.js"></script>
 <script src="/static/js/pace.min.js"></script>
 <script src="/static/js/retina.min.js"></script>
-<script src="/static/js/jquery.cookies.js"></script>
 
 <script src="/static/js/custom.js"></script>
 
 <script src="/static/js/crypto-js-4.0.0/crypto-js.js"></script>
 <script src="/static/js/jsencrypt-master/bin/jsencrypt.js"></script>
 <script src="/static/js/security.js"></script>
-
 <script>
+
+
     function register(){
         var $userName = $('input[name="username"]').val();
         var $password = $('input[name="password"]').val();

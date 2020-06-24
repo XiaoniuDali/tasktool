@@ -1,0 +1,177 @@
+<!-- 不用向导的方案 -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sys="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Chain Responsive Bootstrap3 Admin</title>
+
+        <link href="/static/css/style.default.css" rel="stylesheet">
+        <link href="/static/css/morris.css" rel="stylesheet">
+
+        <link href="/static/css/jquery.tagsinput.css" rel="stylesheet" />
+        <link href="/static/css/toggles.css" rel="stylesheet" />
+        <link href="/static/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+        <link href="/static/css/select2.css" rel="stylesheet" />
+        <link href="/static/css/colorpicker.css" rel="stylesheet" />
+        <link href="/static/css/dropzone.css" rel="stylesheet" />
+
+        <link href="/static/layui/css/layui.css" rel="stylesheet" media="all"/>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv.js"></script>
+        <script src="/static/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+
+        <div class="contentpanel">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="lg-title">Basic Wizard</h5>
+                    <p class="mb20">This basic wizard have no form validation and allows you to skip to another step by clicking on the tab.</p>
+
+                    <!-- BASIC WIZARD -->
+                    <form id="renwu-xinxi-form" method="post" action="/renwuXinxi/addRenwu">
+                        <div class="form-group">
+                            <label class="col-sm-2">任务名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="renwuMingcheng" class="form-control" required/>
+                            </div>
+                        </div><!-- 任务名称 -->
+                        <div class="form-group">
+                            <label class="col-sm-2">任务目标</label>
+                            <div class="col-sm-10">
+                                <textarea name="renwuMubiao" class="form-control"></textarea>
+
+                            </div>
+                        </div><!-- 任务目标 -->
+                        <div class="form-group">
+                            <label class="col-sm-2">难度系数</label>
+                            <div class="col-sm-4">
+                                <!--<input type="text" name="renwuNdxs" id="renwuNdxs" class="form-control" />-->
+                                <div id="renwuNdxs"></div>
+                            </div>
+
+                            <label class="col-sm-2">任务类型</label>
+                            <sys:dict divClass="col-sm-4"
+                                      name="renwuLeixing" class="width300"
+                                      dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                            </sys:dict>
+                        </div> <!-- 难度系数与任务类型 -->
+                        <div class="form-group">
+                            <label class="col-sm-2">是否为工作任务</label>
+                            <sys:dict divClass="col-sm-4"
+                                      name="sfwGzrw" class="width300"
+                                      dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                            </sys:dict>
+                            <label class="col-sm-2">是否为定时任务</label>
+                            <sys:dict divClass="col-sm-4"
+                                      name="sfwDsrw" class="width300"
+                                      dictName="sys_yes_no" fastOptionValue="0" fastOptionName="请选择任务类型">
+                            </sys:dict>
+                        </div>
+                        <div class="form-group"><!-- 预计开始时间选择 -->
+                            <label class="col-sm-2">预计开始日期</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjKssjDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div><!-- input-group -->
+
+                            </div>
+                            <label class="col-sm-2">预计开始时间</label>
+                            <div class="col-sm-4">
+                                <div class="input-group mb15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    <div class="bootstrap-timepicker"><input id="yjKssjTime" type="text" class="form-control"/></div>
+                                </div><!-- input-group -->
+                            </div>
+                        </div><!-- 预计开始时间选择 -->
+                        <div class="form-group"> <!-- 预计结束时间选择 -->
+                            <label class="col-sm-2">预计结束日期</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="yjJssjDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div><!-- input-group -->
+
+                            </div>
+                            <label class="col-sm-2">预计结束时间</label>
+                            <div class="col-sm-4">
+                                <div class="input-group mb15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    <div class="bootstrap-timepicker"><input id="yjJssjTime" type="text" class="form-control"/></div>
+                                </div><!-- input-group -->
+                            </div>
+                        </div> <!-- 预计结束时间选择 -->
+                        <div class="form-group">
+                            <label class="col-sm-2">是否允许多人执行</label>
+                            <div class="col-sm-2">
+                                <div id="sfyxDrzx" class="toggle  toggle-primary"></div>
+                            </div>
+
+                            <label class="col-sm-1">Lastname</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="lastname" class="form-control" />
+                            </div>
+
+                            <label class="col-sm-1">Lastname</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="lastname" class="form-control" />
+                            </div>
+                        </div><!-- form-group -->
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="button" class="btn btn-primary" onclick="saveRenwuXinxi()" value="保存">
+                            </div>
+
+
+                        </div>
+                    </form><!-- 任务信息表单 -->
+
+                </div><!-- col-md-6 -->
+
+            </div><!-- row -->
+
+        </div><!-- contentpanel -->
+
+
+
+        <script src="/static/js/jquery-1.11.1.min.js"></script>
+        <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/static/js/jquery-ui-1.10.3.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/modernizr.min.js"></script>
+        <script src="/static/js/pace.min.js"></script>
+        <script src="/static/js/retina.min.js"></script>
+        <script src="/static/js/jquery.cookies.js"></script>
+
+        <script src="/static/js/bootstrap-wizard.min.js"></script>
+
+        <script src="/static/js/jquery.autogrow-textarea.js"></script>
+        <script src="/static/js/jquery.mousewheel.js"></script>
+        <script src="/static/js/jquery.tagsinput.min.js"></script>
+        <script src="/static/js/toggles.min.js"></script>
+        <script src="/static/js/bootstrap-timepicker.min.js"></script>
+        <script src="/static/js/jquery.maskedinput.min.js"></script>
+        <script src="/static/js/select2.min.js"></script>
+        <script src="/static/js/colorpicker.js"></script>
+        <script src="/static/js/dropzone.min.js"></script>
+
+        <script src="/static/js/jquery.validate.min.js"></script>
+
+        <script src="/static/js/custom.js"></script>
+
+        <script src="/static/layui/layui.js"></script>
+
+        <script src="/static/modules/js/renwu/renwuXinxi2.js"></script>
+
+    </body>
+</html>

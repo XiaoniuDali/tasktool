@@ -22,6 +22,8 @@ public class RenwuChuli implements Serializable {
     @Dict(key = "sys_yes_no")
     private int shifouJsrw;//是否接受任务
     private Date jieshouShijian;//接受时间
+    private Date kaishiRenwuShijian;//开始任务时间
+    private Date yujiWanchengShijian;//预计完成时间，等于开始任务时间加上完成任务预计所需时间
     private int jindu;//个人成进度
     private Date wanchengShijian;//完成时间
     private int ziwoPingfen;//自我评分

@@ -22,7 +22,9 @@ import java.util.List;
 @TableName("tt_account_info")
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
+    public Account(){
 
+    }
     /**
      * 用户ID
      */
