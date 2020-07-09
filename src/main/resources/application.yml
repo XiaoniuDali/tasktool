@@ -1,3 +1,5 @@
+server:
+  port: 8080
 
 spring:
   application:
@@ -72,8 +74,7 @@ mybatis-plus:
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
 
-server:
-  port: 8080
+
 
 logging:
   file:
